@@ -13,10 +13,10 @@ def num_upsets(g: DiGraph) -> int:
     Returns:
     upsets (int): How many upsets
     """
-    wins_list: list[int] = g.out_degree_sequence()
+    wins_list: list[int] = list(g.out_degree_iterator())
     upsets: int = 0
     for edge in g.edges(sort=True, labels=False):
-        if wins_list[edge[0]] > wins_list[edge[1]]:
+        if wins_list[edge[0]] < wins_list[edge[1]]:
             upsets += 1
     return upsets
 
