@@ -5,6 +5,13 @@
 *__pycache__
 
 ####################################
+# C Python Library Ignores
+####################################
+src/c_graph_lib/bin/*
+#This needs to be created per-user with the `bear -- make lib` command in the `c_graph_lib` directory
+*compile_commands.json  
+
+####################################
 # LaTeX Ignores
 ####################################
 

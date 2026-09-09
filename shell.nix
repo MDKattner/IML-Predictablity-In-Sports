@@ -10,5 +10,9 @@ pkgs.mkShell {
 
         sage
         jupyter-all
+
+        gnumake
+        gcc
+        bear # C/C++ clangd tool to expose python includes
     ];
 }
