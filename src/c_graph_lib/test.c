@@ -27,7 +27,7 @@ main (int argc, char *argv[])
     u8 max_upsets    = 0;
     u128 upper_bound = 1;
     upper_bound      = upper_bound << edges;
-    printf ("Calculated upper bound: %llu\n", upper_bound);
+    printf ("Calculated upper bound: %lu\n", (u64)upper_bound);
     UnnamedTG TG = { .graph = 0, .order = order };
     for (; TG.graph < upper_bound; TG.graph++)
         {
@@ -35,7 +35,7 @@ main (int argc, char *argv[])
             if (current_upsets > max_upsets)
                 max_upsets = current_upsets;
         }
-    printf ("Maximum graph value: %llu\n", TG.graph);
+    printf ("Maximum graph value: %lu\n", (u64)TG.graph);
     printf ("Max Upsets: %u", max_upsets);
     return 0;
 }

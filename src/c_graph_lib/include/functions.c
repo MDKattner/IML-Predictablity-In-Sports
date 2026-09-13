@@ -5,10 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-////////////////////////////////////////////////
-// Helper functions not intended for outside use
-////////////////////////////////////////////////
-
 /*
  * Returns number of edges on a TG of order n
  */
@@ -29,13 +25,14 @@ u8Swap (u8 *a, u8 *b)
 static bool
 unsafeReadByte (u8 a, u8 b, UnnamedTG *TG)
 {
-    u128 picker  = 1;
     u8 bit_index = a * (a - 1) / 2 + b;
-    return (TG->graph >> bit_index) & picker;
+    return (TG->graph >> bit_index)
+           & (u128)1; // Typecast needed otherwise the bits after the 32nd are
+                      // ignored
 }
 
 [[maybe_unused]] static bool
-readByte (u8 a, u8 b, UnnamedTG *TG)
+readByteSafe (u8 a, u8 b, UnnamedTG *TG)
 {
     if (a == b)
         return false;
@@ -52,13 +49,12 @@ readByte (u8 a, u8 b, UnnamedTG *TG)
 }
 
 /*
- * The caller must free the array returned as it is heap alocated
+ * It is the caller's responsibility to ensure both that the provided pointer
+ * has enough space allocated and that the memory has been zeroed
  */
-u8 *
-winVector (UnnamedTG *TG)
+void
+winVectorReplace (UnnamedTG *TG, u8 *win_vec)
 {
-    u8 *win_vec = calloc (TG->order, sizeof (u8));
-
     for (u8 a = 1; a < TG->order; a++)
         {
             for (u8 b = 0; b < a; b++)
@@ -69,7 +65,16 @@ winVector (UnnamedTG *TG)
                         win_vec[b]++;
                 }
         }
+}
 
+/*
+ * The caller must free the array returned as it is heap allocated
+ */
+u8 *
+winVector (UnnamedTG *TG)
+{
+    u8 *win_vec = calloc (TG->order, sizeof (u8));
+    winVectorReplace (TG, win_vec);
     return win_vec;
 }
 
@@ -100,7 +105,3 @@ countUpsets (UnnamedTG *TG)
     free (win_vec);
     return upsets;
 }
-
-////////////////////////////////////////////////
-/// Functions intended to be exposed to Python
-////////////////////////////////////////////////

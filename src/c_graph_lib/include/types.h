@@ -38,7 +38,7 @@ typedef struct _unnamedtg
 typedef struct _tournomentgraph
 {
     UnnamedTG tg;
-    char team_names[][4]; // VLAs are allowed at the ends of structs as of c23
+    char *team_names[4]; // VLAs are allowed at the ends of structs as of c11
     /*
      * For a team v_i this array stores the team name of v_i at i
      * Teams must be stored as their 3 letter shorthand (the extra character is
