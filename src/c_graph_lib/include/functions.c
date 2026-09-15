@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*
  * Returns number of edges on a TG of order n
@@ -40,7 +41,7 @@ readByteSafe (u8 a, u8 b, UnnamedTG *TG)
         u8Swap (&a, &b);
     if (TG->order <= a || TG->order <= b)
         {
-            fprintf (stderr, "Verticies are too large for graph of order %u",
+            fprintf (stderr, "Verticies are too large for graph of order %u\n",
                      TG->order);
             return false;
         }
@@ -104,4 +105,53 @@ countUpsets (UnnamedTG *TG)
     u8 upsets   = countUpsetsWithWinVec (TG, win_vec);
     free (win_vec);
     return upsets;
+}
+
+UTGArena *
+makeUTGArena (u8 order)
+{
+    if (order > 16)
+        {
+            fprintf (stderr,
+                     "%s: called with order above 16; returning null\n",
+                     __func__);
+            return nullptr;
+        }
+    UTGArena *arena_out = calloc (1, sizeof (UTGArena) + sizeof (u8) * order);
+    arena_out->tg.order = order;
+    return arena_out;
+}
+
+u8
+maxUpsets (u8 order)
+{
+    u8 max_upsets   = 0;
+    UTGArena *arena = makeUTGArena (order);
+
+    if (arena == nullptr)
+        {
+            fprintf (stderr, "%s: makeUTGArena returned a null pointer",
+                     __func__);
+            return 0;
+        }
+
+    u8 edges         = edgesOrder (order);
+    u128 upper_bound = 1; // This needs to be done in this order otherwise
+                          // wrapping occurs because 1 is treated as an i32
+    upper_bound = upper_bound << edges;
+
+    u8 current_upsets = 0;
+
+    for (; arena->tg.graph < upper_bound; ++arena->tg.graph)
+        {
+            memset (arena->wins, 0,
+                    order); // Zero out bytes for winVectorReplace
+            winVectorReplace (&arena->tg, arena->wins);
+            current_upsets = countUpsetsWithWinVec (&arena->tg, arena->wins);
+            if (current_upsets > max_upsets)
+                max_upsets = current_upsets;
+        }
+
+    free (arena);
+    return max_upsets;
 }

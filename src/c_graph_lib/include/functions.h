@@ -31,4 +31,11 @@ u8 countUpsets (UnnamedTG *TG);
  */
 void winVectorReplace (UnnamedTG *TG, u8 *win_vec);
 
+/*
+ * MALLOC CALL: The user must free the returned pointer
+ */
+UTGArena *makeUTGArena (u8 order);
+
+u8 maxUpsets (u8 order);
+
 #endif /* ifndef FUNCTIONS_H */

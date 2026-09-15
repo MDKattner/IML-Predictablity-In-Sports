@@ -1,4 +1,5 @@
 #include "./include/types.h"
+#include "include/functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -9,9 +10,9 @@
 int
 main (int argc, char *argv[])
 {
-    u8 order = (u8)atoi (argv[1]);
-    u8 edges = edgesOrder (order);
-    //    UnnamedTG TG = { .graph = 0, .order = order };
+    u8 order     = (u8)atoi (argv[1]);
+    u8 edges     = edgesOrder (order);
+    UnnamedTG TG = { .graph = 0, .order = order };
     //    u8 *win_vec  = winVector (&TG);
     //
     //    printf ("[");
@@ -27,15 +28,13 @@ main (int argc, char *argv[])
     u8 max_upsets    = 0;
     u128 upper_bound = 1;
     upper_bound      = upper_bound << edges;
-    printf ("Calculated upper bound: %lu\n", (u64)upper_bound);
-    UnnamedTG TG = { .graph = 0, .order = order };
     for (; TG.graph < upper_bound; TG.graph++)
         {
             u8 current_upsets = countUpsets (&TG);
             if (current_upsets > max_upsets)
                 max_upsets = current_upsets;
         }
-    printf ("Maximum graph value: %lu\n", (u64)TG.graph);
     printf ("Max Upsets: %u", max_upsets);
+    //    printf ("Max upsets for order %u: %u", order, maxUpsets (order));
     return 0;
 }

@@ -38,7 +38,7 @@ typedef struct _unnamedtg
 typedef struct _tournomentgraph
 {
     UnnamedTG tg;
-    char *team_names[4]; // VLAs are allowed at the ends of structs as of c11
+    char *team_names[4];
     /*
      * For a team v_i this array stores the team name of v_i at i
      * Teams must be stored as their 3 letter shorthand (the extra character is
@@ -53,5 +53,20 @@ typedef struct _tournomentgraph
      * https://www.interestingfootball.com/2025/10/sports-teams-codes-3-letter-short-name.html
      */
 } TournomentGraph;
+
+/*
+ * This type is used for iterating through all graphs of order n with data for
+ * each vertex. Therefore the size of the VLA must be n*(n-1)/2
+ *
+ * This is done to maximize caching when iterating and reduce calls for memory
+ * allocation
+ */
+typedef struct
+{
+    UnnamedTG tg;
+    u8 wins[]; // VLAs are allowed in structs as of C11. When allocating one
+               // must allocate `sizeof(UTGArena) + sizeof(wins)` where the
+               // caller decides the size of the `wins` array.
+} UTGArena;
 
 #endif /* ifndef TYPES_h */
