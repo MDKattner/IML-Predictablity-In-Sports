@@ -1,10 +1,13 @@
 import csv
+import os
 from collections import defaultdict
+from math import comb
 
 DATA_DIR = "Data"
-MEMBERSHIP_PATH = f"{DATA_DIR}/mlb_division_membership.csv"
-GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
-OUT_PATH = f"{DATA_DIR}/mlb_division_series_results.csv"
+ANOMALIES_DIR = f"{DATA_DIR}/anomalies"
+GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/games_played_variation_1985_2024.csv"
+TIED_SERIES_PATH = f"{ANOMALIES_DIR}/tied_division_series_1985_2024.csv"
+TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/individual_tie_games_in_division_1985_2024.csv"
 
 def load_division_lookup():
     """Returns dict: (season, team_code) -> division name."""
@@ -14,8 +17,9 @@ def load_division_lookup():
         for row in reader:
             season = int(row["season"])
             division = row["division"]
-            for i in range(1, 6):
-                team = row[f"team{i}"]
+            teams_str = row["teams"].strip("()")
+            teams = teams_str.split(",")
+            for team in teams:
                 lookup[(season, team)] = division
         return lookup
 
@@ -110,49 +114,69 @@ def write_csv(rows):
         writer.writerows(rows)
 
 
-def verify(rows):
-    expected = 12 * 6 * 10
+def verify(rows, division_lookup):
+    teams_by_season_division = defaultdict(set)
+    for (season, team), division in division_lookup.items():
+        teams_by_season_division[(season, division)].add(team)
+
+    expected = sum(comb(len(teams), 2) for teams in teams_by_season_division.values())
     assert len(rows) == expected, f"expected {expected} rows, got {len(rows)}"
 
     for r in rows:
-        assert r["wins1"] + r["wins2"] + r["ties"] == r["games_played"], (
-            f"win/tie counts don't add up for {r}"
-        )
+        assert r["wins1"] + r["wins2"] + r["ties"] == r["games_played"], f"win/tie counts don't add up for {r}"
 
-    print("Basic structural checks passed (row count, wins+ties=games_played).")
+    print(f"Basic structural checks passed: {len(rows)} rows (matches expected pair count "
+          f"from membership file), wins+ties=games_played for all rows.")
 
 
 def print_discrepancy_report(rows):
+    os.makedirs(ANOMALIES_DIR, exist_ok=True)
+
     print("\n=== DISCREPANCY REPORT (for team meeting) ===\n")
 
     games_by_season = defaultdict(set)
     for r in rows:
         games_by_season[r["season"]].add(r["games_played"])
     print("Distinct games-played-per-pair counts, by season:")
-    for season in sorted(games_by_season):
-        counts = sorted(games_by_season[season])
-        print(f"  {season}: {counts}")
+    with open(GAMES_PLAYED_VARIATION_PATH, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["season", "distinct_games_played_counts"])
+        writer.writeheader()
+        for season in sorted(games_by_season):
+            counts = sorted(games_by_season[season])
+            print(f"  {season}: {counts}")
+            writer.writerow({"season": season, "distinct_games_played_counts": ";".join(str(c) for c in counts)})
 
     tied_series = [r for r in rows if r["result"] == "TIE"]
     print(f"\nTrue tied division series (wins1 == wins2): {len(tied_series)}")
-    for r in tied_series:
-        print(f"  {r['season']} {r['division']}: {r['team1']} vs {r['team2']} "
-              f"({r['wins1']}-{r['wins2']}, {r['ties']} tie game(s))")
+    with open(TIED_SERIES_PATH, "w", newline="") as f:
+        fieldnames = ["season", "division", "team1", "team2", "wins1", "wins2", "ties", "games_played"]
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for r in tied_series:
+            print(f"  {r['season']} {r['division']}: {r['team1']} vs {r['team2']} "
+                  f"({r['wins1']}-{r['wins2']}, {r['ties']} tie game(s))")
+            writer.writerow({k: r[k] for k in fieldnames})
 
     rows_with_tie_games = [r for r in rows if r["ties"] > 0]
     print(f"\nPairs whose season series included at least one 0-0/tied individual game: "
           f"{len(rows_with_tie_games)}")
-    for r in rows_with_tie_games:
-        print(f"  {r['season']} {r['division']}: {r['team1']} vs {r['team2']} "
-              f"-> {r['ties']} tie game(s) out of {r['games_played']}")
+    with open(TIE_GAMES_IN_DIVISION_PATH, "w", newline="") as f:
+        fieldnames = ["season", "division", "team1", "team2", "ties", "games_played"]
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for r in rows_with_tie_games:
+            print(f"  {r['season']} {r['division']}: {r['team1']} vs {r['team2']} "
+                  f"-> {r['ties']} tie game(s) out of {r['games_played']}")
+            writer.writerow({k: r[k] for k in fieldnames})
 
     print("\n=== END REPORT ===\n")
-
+    print(f"Written to {ANOMALIES_DIR}/: games_played_variation, tied_division_series, "
+          f"individual_tie_games_in_division")
 
 if __name__ == "__main__":
     division_lookup = load_division_lookup()
     pair_games = load_in_division_games(division_lookup)
     rows = summarize(pair_games)
     write_csv(rows)
-    verify(rows)
+    verify(rows, division_lookup)
     print_discrepancy_report(rows)
