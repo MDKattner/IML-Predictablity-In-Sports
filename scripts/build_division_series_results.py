@@ -4,10 +4,15 @@ from collections import defaultdict
 from math import comb
 
 DATA_DIR = "Data"
+MEMBERSHIP_PATH = f"{DATA_DIR}/mlb_division_membership.csv"
+GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
+OUT_PATH = f"{DATA_DIR}/mlb_division_series_results.csv"
+
 ANOMALIES_DIR = f"{DATA_DIR}/anomalies"
 GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/games_played_variation_1985_2024.csv"
 TIED_SERIES_PATH = f"{ANOMALIES_DIR}/tied_division_series_1985_2024.csv"
 TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/individual_tie_games_in_division_1985_2024.csv"
+
 
 def load_division_lookup():
     """Returns dict: (season, team_code) -> division name."""
@@ -21,37 +26,26 @@ def load_division_lookup():
             teams = teams_str.split(",")
             for team in teams:
                 lookup[(season, team)] = division
-        return lookup
+    return lookup
+
 
 def load_in_division_games(division_lookup):
-    """
-    Scans the full game log, keeps only MLB games where both teams
-    are in the same division that season. Returns a dict:
-    (season, division, pair) -> list of (winner_code, is_tie) tuples,
-    where pair is a sorted tuple of the two team codes (so BAL/BOS
-    and BOS/BAL collapse to the same key).
-    """
+    """Returns dict: (season, division, pair) -> list of (winner_code, is_tie) tuples."""
     pair_games = defaultdict(list)
-
     with open(GAME_LOG_PATH) as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row["league"] != "MLB":
                 continue
-
             season = int(row["season"])
             team1 = row["team1"]
             team2 = row["team2"]
-
             div1 = division_lookup.get((season, team1))
             div2 = division_lookup.get((season, team2))
-
             if div1 is None or div2 is None or div1 != div2:
                 continue
-
             result = int(row["result"])
             pair = tuple(sorted([team1, team2]))
-
             if result == 1:
                 winner = team1
                 is_tie = False
@@ -61,16 +55,11 @@ def load_in_division_games(division_lookup):
             else:
                 winner = None
                 is_tie = True
-
             pair_games[(season, div1, pair)].append((winner, is_tie))
+    return pair_games
 
-        return pair_games
 
 def summarize(pair_games):
-    """
-    Turns each (season, division, pair) -> list of game outcomes into one summary row:
-    season, league, division, team1, team2, result, wins1, wins2, ties, games_played
-    """
     rows = []
     for (season, division, pair), games in pair_games.items():
         team1, team2 = pair
@@ -78,36 +67,31 @@ def summarize(pair_games):
         wins2 = sum(1 for winner, is_tie in games if winner == team2)
         ties = sum(1 for winner, is_tie in games if is_tie)
         games_played = len(games)
-
         if wins1 > wins2:
             result = team1
         elif wins2 > wins1:
             result = team2
         else:
             result = "TIE"
-
-        rows.append(
-            {
-                "season": season,
-                "league": "MLB",
-                "division": division,
-                "team1": team1,
-                "team2": team2,
-                "result": result,
-                "wins1": wins1,
-                "wins2": wins2,
-                "ties": ties,
-                "games_played": games_played,
-            }
-        )
+        rows.append({
+            "season": season,
+            "league": "MLB",
+            "division": division,
+            "team1": team1,
+            "team2": team2,
+            "result": result,
+            "wins1": wins1,
+            "wins2": wins2,
+            "ties": ties,
+            "games_played": games_played,
+        })
     rows.sort(key=lambda r: (r["season"], r["division"], r["team1"], r["team2"]))
     return rows
 
+
 def write_csv(rows):
-    fieldnames = [
-        "season", "league", "division", "team1", "team2",
-        "result", "wins1", "wins2", "ties", "games_played",
-    ]
+    fieldnames = ["season", "league", "division", "team1", "team2", "result",
+                  "wins1", "wins2", "ties", "games_played"]
     with open(OUT_PATH, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -172,6 +156,7 @@ def print_discrepancy_report(rows):
     print("\n=== END REPORT ===\n")
     print(f"Written to {ANOMALIES_DIR}/: games_played_variation, tied_division_series, "
           f"individual_tie_games_in_division")
+
 
 if __name__ == "__main__":
     division_lookup = load_division_lookup()
