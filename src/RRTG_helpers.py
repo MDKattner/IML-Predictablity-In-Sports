@@ -119,8 +119,28 @@ def stats_up_to(n: int) -> pd.DataFrame:
             "Variance": upset_var,
             "Mean": upset_mean,
             "Max": upset_max,
-            "Upset Counts": upset_table,
         },
         index=list(range(1, n)),
     )
     return df_out
+
+def avg_upsets(n: int):
+    avg = float(sum(tou.upset_generator(int(n), int(0))) / (1 << (n*(n-1)/2)))
+    return avg
+
+def var_upsets(n: int):
+    from functools import reduce
+    avg = avg_upsets(n)
+    return reduce(lambda x, y: 
+                  float(x) + (float(y) - avg)**2, 
+                  tou.upset_generator(int(n), int(0)), float(0.0)) / float(1 << (n*(n-1)/2))
+
+def avg_var_upsets(n: int):
+    from functools import reduce
+    avg = avg_upsets(n)
+    return (
+        avg, 
+        reduce(lambda x, y: 
+                  float(x) + (float(y) - avg)**2, 
+                  tou.upset_generator(int(n), int(0)), float(0.0)) / float(1 << (n*(n-1)/2))
+           )

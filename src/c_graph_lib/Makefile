@@ -8,7 +8,7 @@ PYFLAGS = $(shell python3-config --cflags --ldflags --embed)
 
 .PHONY: all clean
 
-all: tests
+all: tests tourny
 
 tests: ./test.c $(INCDIR)functions.c $(INCDIR)types.h
 	$(CC) $(STD) $(WARN) $(DBG) ./test.c -o $(BINDIR)$@
