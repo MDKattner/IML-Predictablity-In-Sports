@@ -1,8 +1,9 @@
-# Notes — MLB division data (1985–2024)
+# Notes — division data (MLB 1985–2024, NBA 2004–2024)
 
-Findings, decisions, and data caveats from building the MLB division-level dataset. This is the
+Findings, decisions, and data caveats from building the division-level datasets. This is the
 narrative companion to the CSVs in `Data/` and the evidence files in `Data/anomalies/`. Written
-to be read before using the data for upset analysis.
+to be read before using the data for upset analysis. The MLB section comes first; the NBA section
+follows; the "upset definition", "two models", and "open caveats" sections apply to all leagues.
 
 ---
 
@@ -104,6 +105,50 @@ completed. 13 were between division rivals. Evidence: `mlb_ties_1985_2024.csv` (
 `anomalies/individual_tie_games_in_division_1985_2024.csv` (the 13). These games count toward
 `games_played` but toward neither team's wins, which is why `mlb_division_series_results.csv` has
 a separate `ties` column and why win totals don't always sum to games played.
+
+---
+
+## NBA (2004–2024)
+
+### What the NBA dataset covers
+NBA seasons **2004–2024** (21 seasons), same division-level reduction as MLB. Two processed files:
+`nba_division_membership.csv` (126 rows) and `nba_division_series_results.csv` (1,260 rows).
+
+### Scope: why 2004, and what's deferred
+2004-05 is the first season of the NBA's current **6-divisions-of-5** alignment, which is
+**constant across the whole 2004–2024 window** — so, unlike MLB, there are no realignment eras to
+track, just one division table. Before 2004 the NBA used **4 larger divisions** (different
+tournament sizes), and those pre-2004 division assignments are **not recoverable from the game log
+alone** (no division column, and the older unbalanced schedules don't cleanly reveal divisions via
+game frequency either — verified). Extending back would require a citable source
+(Basketball-Reference) verified season-by-season, comparable to the MLB multi-era effort. This is
+a **deliberate, stated scope cutoff**, not "done."
+
+### Franchise code changes (same team, different code in the data)
+The alignment doesn't change, but three franchises appear under a changed code mid-window. The
+membership script resolves these per season:
+
+| Franchise | Codes (by season) |
+|---|---|
+| New Jersey → Brooklyn Nets | `NJN` (2004–2011) → `BKN` (2012+) |
+| Seattle → Oklahoma City | `SEA` (2004–2007) → `OKC` (2008+) |
+| New Orleans (Hornets → Pelicans) | `NOH` (2004, 2007–2012) → `NOK` (2005–06, post-Katrina) → `NOP` (2013+) |
+
+Charlotte stays `CHA` throughout (Bobcats → Hornets, same code).
+
+### Ties are expected, not anomalies
+The NBA plays an **even 4 games per intra-division pair**, so 2–2 tied series are common —
+**310** across 2004–2024. These are recorded (in `Data/anomalies/`) only because the upset
+definition treats a tied series as 1/2 an upset, not because they are data errors. Games-per-pair
+is normally 4; blips (2011 lockout, 2019–2020 COVID, 2023) are real schedule disruptions.
+
+### Design note flagged for the group
+- **Division assignments are from documented history, not verifiable by the script.** `verify()`
+  confirms the team *codes* match the game log each season, but the log has no division column, so
+  it cannot confirm a team is in the *correct* division. The 6 rosters should be eyeballed against
+  Basketball-Reference before being treated as verified.
+- **Naming inconsistency:** NBA divisions are named bare (`Atlantic`, `Pacific`); MLB uses
+  `AL-East` / `NL-West`. Unresolved — flagged for the group.
 
 ---
 
