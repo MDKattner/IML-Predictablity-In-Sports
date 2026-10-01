@@ -144,3 +144,23 @@ def avg_var_upsets(n: int):
                   float(x) + (float(y) - avg)**2, 
                   tou.upset_generator(int(n), int(0)), float(0.0)) / float(1 << (n*(n-1)/2))
            )
+
+def str_upsets_not_upsets(g: DiGraph) -> list[tuple[int, int]]:
+    """
+    Returns a pair of a list of all upsets in a DiGraph and a list of all non-upsets
+    Parameters:
+    g (DiGraph): The digraph
+    Returns:
+    (
+    upsets (list[tuple[int, int]]): The upset edges
+    non-upsets (list[tuple[int, int]]): The non-upset edges
+    )
+    """
+    upsets: list[tuple[int, int]] = list()
+    non_upsets: list[tuple[int, int]] = list()
+    for edge in g.edges(sort=True, labels=False):
+        if g.out_degree(edge[0]) < g.out_degree(edge[1]):
+            upsets.append(edge)
+        else:
+            non_upsets.append(edge)
+    return upsets, non_upsets
