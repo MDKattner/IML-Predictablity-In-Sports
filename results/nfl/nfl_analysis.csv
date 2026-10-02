@@ -1,0 +1,185 @@
+season,division,num_teams,games_per_pair,teams,scoring_sequence,upset
+2002,AFC-East,4,2,"('BUF', 'NE', 'NYJ', 'MIA')","(1, 1, 1, 0)",0
+2002,AFC-North,4,2,"('PIT', 'BAL', 'CLE', 'CIN')","(3, 1, 1, 0)",0
+2002,AFC-South,4,2,"('TEN', 'IND', 'HOU', 'JAX')","(3, 2, 0, 0)",0
+2002,AFC-West,2,2,"('DEN', 'KC')","(1, 0)",0
+2002,NFC-East,4,2,"('NYG', 'PHI', 'DAL', 'WAS')","(2, 2, 0, 0)",0
+2002,NFC-North,4,2,"('GB', 'MIN', 'CHI', 'DET')","(2, 1, 0, 0)",0
+2002,NFC-South,4,2,"('ATL', 'TB', 'NO', 'CAR')","(2, 2, 1, 0)",1
+2002,NFC-West,3,2,"('SF', 'ARI', 'SEA')","(2, 0, 0)",0
+2003,AFC-East,4,2,"('MIA', 'NE', 'BUF', 'NYJ')","(2, 2, 0, 0)",0
+2003,AFC-North,4,2,"('BAL', 'CIN', 'CLE', 'PIT')","(1, 0, 0, 0)",0
+2003,AFC-South,4,2,"('IND', 'TEN', 'HOU', 'JAX')","(2, 2, 0, 0)",0
+2003,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2003,NFC-East,4,2,"('DAL', 'PHI', 'NYG', 'WAS')","(2, 2, 0, 0)",0
+2003,NFC-North,4,2,"('GB', 'MIN', 'CHI', 'DET')","(1, 1, 0, 0)",0
+2003,NFC-South,4,2,"('CAR', 'NO', 'ATL', 'TB')","(2, 1, 0, 0)",0
+2003,NFC-West,3,2,"('SEA', 'ARI', 'SF')","(2, 0, 0)",0
+2004,AFC-East,4,2,"('NE', 'BUF', 'NYJ', 'MIA')","(2, 1, 1, 0)",0
+2004,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(2, 0, 0, 0)",0
+2004,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(2, 2, 0, 0)",0
+2004,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2004,NFC-East,4,2,"('PHI', 'DAL', 'NYG', 'WAS')","(3, 1, 1, 0)",0
+2004,NFC-North,4,2,"('GB', 'DET', 'MIN', 'CHI')","(2, 1, 1, 0)",0
+2004,NFC-South,4,2,"('ATL', 'CAR', 'NO', 'TB')","(1, 1, 0, 0)",0
+2004,NFC-West,3,2,"('SEA', 'SF', 'ARI')","(1, 1, 0)",0
+2005,AFC-East,4,2,"('NE', 'BUF', 'MIA', 'NYJ')","(2, 0, 0, 0)",0
+2005,AFC-North,4,2,"('CIN', 'PIT', 'BAL', 'CLE')","(2, 1, 0, 0)",0
+2005,AFC-South,4,2,"('IND', 'JAX', 'TEN', 'HOU')","(3, 2, 1, 0)",0
+2005,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2005,NFC-East,4,2,"('WAS', 'DAL', 'NYG', 'PHI')","(2, 1, 1, 0)",0
+2005,NFC-North,4,2,"('CHI', 'MIN', 'DET', 'GB')","(2, 2, 0, 0)",0
+2005,NFC-South,4,2,"('TB', 'ATL', 'CAR', 'NO')","(2, 1, 1, 0)",0
+2005,NFC-West,3,2,"('SEA', 'ARI', 'SF')","(2, 1, 0)",0
+2006,AFC-East,4,2,"('BUF', 'NE', 'NYJ', 'MIA')","(1, 1, 1, 0)",0
+2006,AFC-North,4,2,"('BAL', 'CIN', 'PIT', 'CLE')","(2, 1, 1, 0)",0
+2006,AFC-South,4,2,"('HOU', 'TEN', 'IND', 'JAX')","(1, 1, 0, 0)",0
+2006,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2006,NFC-East,4,2,"('PHI', 'NYG', 'DAL', 'WAS')","(2, 1, 0, 0)",0
+2006,NFC-North,4,2,"('CHI', 'GB', 'MIN', 'DET')","(2, 2, 1, 0)",0
+2006,NFC-South,4,2,"('CAR', 'NO', 'ATL', 'TB')","(2, 2, 1, 0)",0
+2006,NFC-West,3,2,"('ARI', 'SF', 'SEA')","(1, 1, 0)",0
+2007,AFC-East,4,2,"('NE', 'BUF', 'NYJ', 'MIA')","(3, 2, 1, 0)",0
+2007,AFC-North,4,2,"('PIT', 'CIN', 'CLE', 'BAL')","(2, 1, 1, 0)",0
+2007,AFC-South,4,2,"('IND', 'TEN', 'HOU', 'JAX')","(2, 1, 0, 0)",0
+2007,AFC-West,2,2,"('DEN', 'KC')","(1, 0)",0
+2007,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(1, 1, 0, 0)",0
+2007,NFC-North,4,2,"('GB', 'CHI', 'DET', 'MIN')","(2, 1, 1, 1)",1
+2007,NFC-South,4,2,"('TB', 'NO', 'ATL', 'CAR')","(2, 1, 0, 0)",0
+2007,NFC-West,3,2,"('SEA', 'SF', 'ARI')","(1, 1, 0)",0
+2008,AFC-East,4,2,"('MIA', 'NE', 'NYJ', 'BUF')","(1, 1, 1, 0)",0
+2008,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(3, 2, 0, 0)",0
+2008,AFC-South,4,2,"('IND', 'TEN', 'HOU', 'JAX')","(1, 1, 0, 0)",0
+2008,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2008,NFC-East,4,2,"('NYG', 'WAS', 'DAL', 'PHI')","(1, 1, 0, 0)",0
+2008,NFC-North,4,2,"('CHI', 'GB', 'MIN', 'DET')","(1, 1, 1, 0)",0
+2008,NFC-South,4,2,"('CAR', 'ATL', 'NO', 'TB')","(1, 0, 0, 0)",0
+2008,NFC-West,3,2,"('ARI', 'SEA', 'SF')","(2, 0, 0)",0
+2009,AFC-East,4,2,"('MIA', 'NE', 'BUF', 'NYJ')","(1, 1, 0, 0)",0
+2009,AFC-North,4,2,"('CIN', 'BAL', 'CLE', 'PIT')","(3, 1, 0, 0)",0
+2009,AFC-South,4,2,"('IND', 'JAX', 'HOU', 'TEN')","(3, 1, 0, 0)",0
+2009,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2009,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(2, 2, 2, 0)",0
+2009,NFC-North,4,2,"('GB', 'MIN', 'CHI', 'DET')","(2, 2, 1, 0)",0
+2009,NFC-South,4,2,"('ATL', 'CAR', 'NO', 'TB')","(1, 1, 1, 0)",0
+2009,NFC-West,3,2,"('ARI', 'SF', 'SEA')","(1, 1, 0)",0
+2010,AFC-East,4,2,"('NE', 'NYJ', 'BUF', 'MIA')","(2, 1, 0, 0)",0
+2010,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(2, 1, 0, 0)",0
+2010,AFC-South,4,2,"('IND', 'HOU', 'JAX', 'TEN')","(1, 0, 0, 0)",0
+2010,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2010,NFC-East,4,2,"('NYG', 'PHI', 'DAL', 'WAS')","(1, 1, 0, 0)",0
+2010,NFC-North,4,2,"('CHI', 'GB', 'DET', 'MIN')","(2, 1, 0, 0)",0
+2010,NFC-South,4,2,"('ATL', 'NO', 'TB', 'CAR')","(2, 1, 1, 0)",0
+2010,NFC-West,3,2,"('SEA', 'SF', 'ARI')","(1, 1, 0)",0
+2011,AFC-East,4,2,"('NE', 'MIA', 'NYJ', 'BUF')","(2, 1, 1, 0)",0
+2011,AFC-North,4,2,"('BAL', 'PIT', 'CIN', 'CLE')","(3, 2, 1, 0)",0
+2011,AFC-South,4,2,"('HOU', 'JAX', 'IND', 'TEN')","(1, 1, 0, 0)",0
+2011,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2011,NFC-East,4,2,"('PHI', 'DAL', 'NYG', 'WAS')","(2, 1, 1, 1)",0
+2011,NFC-North,4,2,"('GB', 'CHI', 'DET', 'MIN')","(3, 1, 1, 0)",0
+2011,NFC-South,4,2,"('NO', 'ATL', 'CAR', 'TB')","(2, 1, 1, 0)",0
+2011,NFC-West,3,2,"('SF', 'ARI', 'SEA')","(1, 0, 0)",0
+2012,AFC-East,4,2,"('NE', 'BUF', 'MIA', 'NYJ')","(3, 0, 0, 0)",0
+2012,AFC-North,4,2,"('BAL', 'CIN', 'CLE', 'PIT')","(1, 0, 0, 0)",0
+2012,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(2, 1, 0, 0)",0
+2012,AFC-West,2,2,"('DEN', 'KC')","(1, 0)",0
+2012,NFC-East,4,2,"('WAS', 'DAL', 'NYG', 'PHI')","(2, 1, 0, 0)",0
+2012,NFC-North,4,2,"('GB', 'CHI', 'MIN', 'DET')","(2, 1, 1, 0)",0
+2012,NFC-South,4,2,"('CAR', 'NO', 'TB', 'ATL')","(1, 1, 1, 0)",0
+2012,NFC-West,3,2,"('SF', 'ARI', 'SEA')","(1, 0, 0)",0
+2013,AFC-East,4,2,"('BUF', 'NE', 'MIA', 'NYJ')","(1, 1, 0, 0)",0
+2013,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(1, 0, 0, 0)",0
+2013,AFC-South,4,2,"('IND', 'JAX', 'HOU', 'TEN')","(3, 1, 0, 0)",0
+2013,AFC-West,2,2,"('DEN', 'KC')","(1, 0)",0
+2013,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(2, 1, 1, 0)",0
+2013,NFC-North,4,2,"('DET', 'GB', 'CHI', 'MIN')","(1, 1, 0, 0)",0
+2013,NFC-South,4,2,"('CAR', 'NO', 'ATL', 'TB')","(2, 2, 0, 0)",0
+2013,NFC-West,3,2,"('SF', 'ARI', 'SEA')","(1, 0, 0)",0
+2014,AFC-East,4,2,"('BUF', 'NE', 'MIA', 'NYJ')","(1, 1, 0, 0)",0
+2014,AFC-North,4,2,"('BAL', 'CIN', 'PIT', 'CLE')","(1, 1, 1, 0)",0
+2014,AFC-South,4,2,"('IND', 'HOU', 'JAX', 'TEN')","(3, 2, 0, 0)",0
+2014,AFC-West,2,2,"('DEN', 'KC')","(1, 0)",0
+2014,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(1, 1, 1, 0)",0
+2014,NFC-North,4,2,"('DET', 'GB', 'CHI', 'MIN')","(2, 2, 0, 0)",0
+2014,NFC-South,4,2,"('ATL', 'CAR', 'NO', 'TB')","(2, 1, 1, 0)",0
+2014,NFC-West,3,2,"('SEA', 'ARI', 'SF')","(2, 0, 0)",0
+2015,AFC-East,4,2,"('BUF', 'NE', 'NYJ', 'MIA')","(2, 1, 1, 0)",1
+2015,AFC-North,4,2,"('CIN', 'BAL', 'PIT', 'CLE')","(2, 1, 1, 0)",0
+2015,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(2, 1, 0, 0)",0
+2015,AFC-West,2,2,"('DEN', 'KC')","(0, 0)",0
+2015,NFC-East,4,2,"('PHI', 'WAS', 'DAL', 'NYG')","(1, 1, 0, 0)",0
+2015,NFC-North,4,2,"('MIN', 'DET', 'CHI', 'GB')","(2, 1, 0, 0)",0
+2015,NFC-South,4,2,"('CAR', 'NO', 'TB', 'ATL')","(2, 1, 1, 0)",0
+2015,NFC-West,3,2,"('ARI', 'SEA', 'SF')","(1, 1, 0)",0
+2016,AFC-East,4,2,"('MIA', 'NE', 'NYJ', 'BUF')","(2, 2, 1, 0)",0
+2016,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(2, 1, 1, 0)",0
+2016,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(2, 1, 0, 0)",0
+2016,AFC-West,2,2,"('KC', 'DEN')","(1, 0)",0
+2016,NFC-East,4,2,"('DAL', 'NYG', 'WAS', 'PHI')","(1, 1, 1, 0)",0
+2016,NFC-North,4,2,"('GB', 'DET', 'CHI', 'MIN')","(2, 1, 0, 0)",0
+2016,NFC-South,4,2,"('ATL', 'TB', 'CAR', 'NO')","(2, 1, 0, 0)",0
+2016,NFC-West,4,2,"('ARI', 'SEA', 'SF', 'LAR')","(2, 1, 1, 0)",0
+2017,AFC-East,4,2,"('NE', 'BUF', 'MIA', 'NYJ')","(2, 1, 0, 0)",0
+2017,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(3, 1, 1, 0)",0
+2017,AFC-South,4,2,"('JAX', 'TEN', 'IND', 'HOU')","(2, 2, 1, 0)",0
+2017,AFC-West,3,2,"('KC', 'DEN', 'LAC')","(2, 0, 0)",0
+2017,NFC-East,4,2,"('DAL', 'PHI', 'NYG', 'WAS')","(2, 2, 0, 0)",0
+2017,NFC-North,4,2,"('DET', 'MIN', 'GB', 'CHI')","(2, 2, 1, 0)",0
+2017,NFC-South,4,2,"('ATL', 'CAR', 'NO', 'TB')","(1, 1, 1, 0)",0
+2017,NFC-West,4,2,"('ARI', 'LAR', 'SEA', 'SF')","(1, 1, 1, 0)",0
+2018,AFC-East,4,2,"('NE', 'MIA', 'BUF', 'NYJ')","(2, 1, 0, 0)",0
+2018,AFC-North,4,2,"('PIT', 'CLE', 'BAL', 'CIN')","(2, 1, 0, 0)",0
+2018,AFC-South,4,2,"('HOU', 'IND', 'TEN', 'JAX')","(1, 1, 1, 0)",0
+2018,AFC-West,3,2,"('KC', 'DEN', 'LAC')","(1, 0, 0)",0
+2018,NFC-East,4,2,"('DAL', 'PHI', 'NYG', 'WAS')","(2, 2, 0, 0)",0
+2018,NFC-North,4,2,"('CHI', 'MIN', 'DET', 'GB')","(2, 2, 1, 0)",0
+2018,NFC-South,4,2,"('ATL', 'NO', 'CAR', 'TB')","(2, 1, 0, 0)",1
+2018,NFC-West,4,2,"('LAR', 'ARI', 'SEA', 'SF')","(3, 1, 1, 0)",0
+2019,AFC-East,4,2,"('NE', 'BUF', 'MIA', 'NYJ')","(2, 1, 0, 0)",0
+2019,AFC-North,4,2,"('BAL', 'PIT', 'CIN', 'CLE')","(2, 1, 0, 0)",0
+2019,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(1, 0, 0, 0)",0
+2019,AFC-West,3,2,"('KC', 'DEN', 'LAC')","(2, 1, 0)",0
+2019,NFC-East,4,2,"('DAL', 'PHI', 'NYG', 'WAS')","(2, 2, 1, 0)",0
+2019,NFC-North,4,2,"('GB', 'CHI', 'MIN', 'DET')","(3, 2, 1, 0)",0
+2019,NFC-South,4,2,"('NO', 'ATL', 'CAR', 'TB')","(2, 1, 0, 0)",0
+2019,NFC-West,4,2,"('SF', 'LAR', 'ARI', 'SEA')","(2, 1, 0, 0)",0
+2020,AFC-East,4,2,"('BUF', 'MIA', 'NE', 'NYJ')","(3, 1, 1, 0)",0
+2020,AFC-North,4,2,"('BAL', 'CLE', 'PIT', 'CIN')","(2, 1, 1, 0)",1
+2020,AFC-South,4,2,"('TEN', 'HOU', 'IND', 'JAX')","(2, 1, 1, 0)",0
+2020,AFC-West,4,2,"('KC', 'LV', 'DEN', 'LAC')","(1, 1, 0, 0)",0
+2020,NFC-East,4,2,"('WAS', 'NYG', 'DAL', 'PHI')","(2, 1, 0, 0)",1
+2020,NFC-North,4,2,"('GB', 'MIN', 'CHI', 'DET')","(2, 1, 0, 0)",0
+2020,NFC-South,4,2,"('NO', 'TB', 'ATL', 'CAR')","(3, 2, 0, 0)",0
+2020,NFC-West,4,2,"('LAR', 'SEA', 'SF', 'ARI')","(1, 1, 1, 0)",0
+2021,AFC-East,4,2,"('BUF', 'MIA', 'NE', 'NYJ')","(2, 2, 1, 0)",0
+2021,AFC-North,4,2,"('CIN', 'PIT', 'CLE', 'BAL')","(2, 2, 1, 0)",1
+2021,AFC-South,4,2,"('TEN', 'HOU', 'IND', 'JAX')","(2, 1, 1, 0)",0
+2021,AFC-West,4,2,"('KC', 'LV', 'DEN', 'LAC')","(2, 1, 0, 0)",0
+2021,NFC-East,4,2,"('DAL', 'PHI', 'WAS', 'NYG')","(3, 1, 1, 0)",0
+2021,NFC-North,4,2,"('CHI', 'GB', 'MIN', 'DET')","(1, 1, 1, 0)",0
+2021,NFC-South,4,2,"('TB', 'NO', 'ATL', 'CAR')","(2, 1, 0, 0)",1
+2021,NFC-West,4,2,"('ARI', 'LAR', 'SEA', 'SF')","(1, 1, 1, 1)",0
+2022,AFC-East,4,2,"('BUF', 'NE', 'MIA', 'NYJ')","(1, 1, 0, 0)",0
+2022,AFC-North,4,2,"('BAL', 'CIN', 'CLE', 'PIT')","(0, 0, 0, 0)",0
+2022,AFC-South,4,2,"('HOU', 'JAX', 'TEN', 'IND')","(1, 1, 1, 0)",0
+2022,AFC-West,4,2,"('KC', 'LV', 'DEN', 'LAC')","(3, 1, 0, 0)",0
+2022,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(1, 1, 1, 0)",0
+2022,NFC-North,4,2,"('DET', 'GB', 'MIN', 'CHI')","(2, 1, 1, 0)",0
+2022,NFC-South,4,2,"('CAR', 'NO', 'TB', 'ATL')","(1, 1, 1, 0)",0
+2022,NFC-West,4,2,"('SF', 'SEA', 'ARI', 'LAR')","(3, 2, 0, 0)",0
+2023,AFC-East,4,2,"('MIA', 'BUF', 'NE', 'NYJ')","(2, 1, 0, 0)",1
+2023,AFC-North,4,2,"('PIT', 'BAL', 'CIN', 'CLE')","(2, 1, 0, 0)",0
+2023,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(1, 1, 1, 0)",0
+2023,AFC-West,4,2,"('DEN', 'KC', 'LV', 'LAC')","(1, 1, 1, 0)",0
+2023,NFC-East,4,2,"('DAL', 'NYG', 'PHI', 'WAS')","(2, 1, 1, 0)",0
+2023,NFC-North,4,2,"('DET', 'GB', 'CHI', 'MIN')","(1, 1, 0, 0)",0
+2023,NFC-South,4,2,"('NO', 'TB', 'ATL', 'CAR')","(1, 1, 0, 0)",0
+2023,NFC-West,4,2,"('LAR', 'SF', 'SEA', 'ARI')","(2, 2, 1, 0)",0
+2024,AFC-East,4,2,"('BUF', 'MIA', 'NE', 'NYJ')","(2, 1, 0, 0)",0
+2024,AFC-North,4,2,"('BAL', 'CIN', 'CLE', 'PIT')","(1, 1, 0, 0)",0
+2024,AFC-South,4,2,"('HOU', 'IND', 'JAX', 'TEN')","(2, 1, 1, 0)",0
+2024,AFC-West,4,2,"('KC', 'LAC', 'DEN', 'LV')","(2, 2, 1, 0)",0
+2024,NFC-East,4,2,"('PHI', 'DAL', 'WAS', 'NYG')","(2, 1, 1, 0)",0
+2024,NFC-North,4,2,"('DET', 'MIN', 'CHI', 'GB')","(3, 2, 0, 0)",0
+2024,NFC-South,4,2,"('TB', 'ATL', 'CAR', 'NO')","(2, 1, 0, 0)",1
+2024,NFC-West,4,2,"('ARI', 'LAR', 'SEA', 'SF')","(1, 1, 1, 0)",0
