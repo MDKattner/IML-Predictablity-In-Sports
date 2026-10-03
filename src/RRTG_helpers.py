@@ -21,6 +21,48 @@ def num_upsets(g: DiGraph) -> int:
     return upsets
 
 
+def upsets(g: DiGraph) -> list[tuple[int, int]]:
+    """
+    Returns a list of all upsets in a DiGraph
+
+    Parameters:
+    g (DiGraph): The digraph
+
+    Returns:
+    upsets (list[tuple[int, int]]): The upset edges
+    """
+    wins_list: list[int] = list(g.out_degree_iterator())
+    upsets: list[tuple[int, int]] = list()
+    for edge in g.edges(sort=True, labels=False):
+        if wins_list[edge[0]] < wins_list[edge[1]]:
+            upsets.append(edge)
+    return upsets
+
+
+def upsets_not_upsets(g: DiGraph) -> list[tuple[int, int]]:
+    """
+    Returns a pair of a list of all upsets in a DiGraph and a list of all non-upsets
+
+    Parameters:
+    g (DiGraph): The digraph
+
+    Returns:
+    (
+    upsets (list[tuple[int, int]]): The upset edges
+    non-upsets (list[tuple[int, int]]): The non-upset edges
+    )
+    """
+    wins_list: list[int] = list(g.out_degree_iterator())
+    upsets: list[tuple[int, int]] = list()
+    non_upsets: list[tuple[int, int]] = list()
+    for edge in g.edges(sort=True, labels=False):
+        if wins_list[edge[0]] < wins_list[edge[1]]:
+            upsets.append(edge)
+        else:
+            non_upsets.append(edge)
+    return upsets, non_upsets
+
+
 def max_upsets(n: int) -> int:
     """
     Returns the maximum number of upsets for a round robin tournament graph (RRTG) on n vertcies
