@@ -332,7 +332,6 @@ def tourny_html_code(
             "vertex_labels": bool(vertex_labels),
             "edge_labels": bool(edge_labels),
             "vertex_size": int(vertex_size),
-            "max_node_size": max((n["size"] for n in nodes)),
             "edge_thickness": int(edge_thickness),
         }
     )

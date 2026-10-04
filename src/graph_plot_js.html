@@ -98,7 +98,6 @@ window.onload = function(){
     .data(force.links())
     .enter().append("path")
     .attr("class", function(d) { return "link directed"; })
-    .attr("marker-end", function(d) { return "url(#directed)"; })
     .style("stroke",function(d) { return d.color; })
     .style("stroke-width", graph.edge_thickness+"px");
 
@@ -123,6 +122,19 @@ window.onload = function(){
 	.on('dragend'  , function (){ drag_in_progress=false;}))
 
   node.append("title").text(function(d) { return d.name; });
+
+  // Arrowheads, for directed graphs. One triangle per edge : it is placed
+  // and oriented dynamically in the ``tick`` handler so that its length
+  // adapts to the size of the vertex it points to.
+  var arrow = null;
+  if(graph.directed){
+    arrow = svg.selectAll(".arrow")
+    .data(force.links())
+    .enter().append("path")
+    .attr("class", "arrow")
+    .style("fill", function(d) { return d.color; })
+    .style("stroke", "none");
+  }
 
   // Vertex labels
   if(graph.vertex_labels){
@@ -150,26 +162,6 @@ window.onload = function(){
     .text(function(d,i) { return graph.loops[i].name; })
   }
 
-  // Arrows, for directed graphs
-  if(graph.directed){
-    svg.append("svg:defs").selectAll("marker")
-    .data(["directed"])
-    .enter().append("svg:marker")
-    .attr("id", String)
-    // viewbox is a rectangle with bottom-left corder (0,-2), width 4 and height 4
-    .attr("viewBox", "0 -2 4 4")
-    // This formula took some time ... :-P
-    .attr("refX", Math.ceil(2*Math.sqrt(graph.max_node_size)))
-    .attr("refY", 0)
-    .attr("markerWidth", 4)
-    .attr("markerHeight", 4)
-    .attr("preserveAspectRatio",false)
-    .attr("orient", "auto")
-    .append("svg:path")
-    // triangles with endpoints (0,-2), (4,0), (0,2)
-    .attr("d", "M0,-2L4,0L0,2");
-  }
-
   // The function 'line' takes as input a sequence of tuples, and returns a
   // curve interpolating these points.
   var line = d3.svg.line()
@@ -192,16 +184,47 @@ window.onload = function(){
 
       // Straight edges
       if(d.curve == 0){
-        return "M" + d.source.x + "," + d.source.y + " L" + d.target.x + "," + d.target.y;
+        var start = edge_start(d.source, d.target);
+        var end = edge_end(d.source, d.target);
+        return "M" + start[0] + "," + start[1] + " L" + end[0] + "," + end[1];
       }
       // Curved edges
       else {
         var p = third_point_of_curved_edge(d.source,d.target,d.curve)
-        return line([{'x':d.source.x,'y':d.source.y},
+        var start = edge_start(d.source, {'x':p[0],'y':p[1]});
+        var end = edge_end({'x':p[0],'y':p[1]}, d.target);
+        return line([{'x':start[0],'y':start[1]},
         {'x':p[0],'y':p[1]},
-        {'x':d.target.x,'y':d.target.y}])
+        {'x':end[0],'y':end[1]}])
       }
     });
+
+    // Position and orientation of the arrowheads. Each triangle is drawn
+    // separately so that its length adapts to the size of the vertex it
+    // points to.
+    if(graph.directed){
+      arrow.attr("d", function(d){
+        var v;
+        if(d.curve == 0){
+          v = unit_vector(d.source, d.target);
+        } else {
+          var p = third_point_of_curved_edge(d.source,d.target,d.curve);
+          v = unit_vector({'x':p[0],'y':p[1]}, d.target);
+        }
+        // Tip on the boundary of the target vertex
+        var tipx = d.target.x - v[0]*(d.target.size + 1);
+        var tipy = d.target.y - v[1]*(d.target.size + 1);
+        // The length of the tip grows with the size of the target
+        var tlen = 4 + 0.7*d.target.size;
+        var hw = 0.5*tlen;
+        var bx = tipx - v[0]*tlen;
+        var by = tipy - v[1]*tlen;
+        var nx = -v[1], ny = v[0];
+        return "M" + (bx+nx*hw) + "," + (by+ny*hw) +
+               " L" + (bx-nx*hw) + "," + (by-ny*hw) +
+               " L" + tipx + "," + tipy + " Z";
+      });
+    }
 
     // Position of Loops
     if(graph.loops.length!=0){
@@ -235,6 +258,27 @@ window.onload = function(){
 	var ny=-(dx-ox),nx=dy-oy;
 	var nn = Math.sqrt(nx*nx+ny*ny)
 	return [cx+d*nx/nn,cy+d*ny/nn]
+    }
+
+    // Returns the unit vector pointing from point a to point b.
+    function unit_vector(a,b){
+	var dx=b.x-a.x, dy=b.y-a.y;
+	var norm = Math.sqrt(dx*dx+dy*dy) || 1;
+	return [dx/norm, dy/norm];
+    }
+
+    // Truncates the start of an edge so that the shaft begins on the
+    // boundary of the source vertex, whose size is its out-degree.
+    function edge_start(a,b){
+	var v = unit_vector(a,b);
+	return [a.x + v[0]*(a.size+2), a.y + v[1]*(a.size+2)];
+    }
+
+    // Truncates the end of an edge so that the shaft ends on the
+    // boundary of the target vertex.
+    function edge_end(a,b){
+	var v = unit_vector(a,b);
+	return [b.x - v[0]*b.size, b.y - v[1]*b.size];
     }
 
     // Applies a homothety to the points of the graph respecting the
