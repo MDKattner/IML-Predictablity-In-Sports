@@ -242,7 +242,7 @@ def tourny_html_code(
 
     # Edge colors.
     edge_color_default = "#aaa"
-    color_list = rainbow(len(edge_partition))
+    color_list = ["#CC0000", "#000ECC"]
     edge_color = {}
     for i, l in enumerate(edge_partition):
         for e in l:
