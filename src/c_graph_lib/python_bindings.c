@@ -62,6 +62,12 @@ PyTGToTupples (PyUnamedTG *self)
 static PyObject *
 PyUTGNext (PyUnamedTG *self)
 {
+    u128 upper_bound = (u128)1 << edgesOrder (self->TG.order);
+    if (self->TG.graph >= upper_bound)
+        {
+            PyErr_SetNone (PyExc_StopIteration);
+            return nullptr;
+        }
     self->TG.graph++;
     return Py_NewRef (self);
 }
@@ -69,8 +75,6 @@ PyUTGNext (PyUnamedTG *self)
 static PyMethodDef PyTournomentMethods[]
     = { { "to_tuple", (PyCFunction)PyTGToTupples, METH_NOARGS,
           "Returns the tournoment graph as a list of tuples of edges" },
-        { "next", (PyCFunction)PyUTGNext, METH_NOARGS,
-          "Iterates to the next tournoment graph" },
         { nullptr } };
 
 static PyObject *
@@ -96,17 +100,18 @@ PyTournyNew (PyTypeObject *type, PyObject *args, PyObject *kwds)
     return (PyObject *)self;
 }
 
-static PyTypeObject PyTournomentType = {
-    PyVarObject_HEAD_INIT (nullptr, 0).tp_name = "tourny.unnamed_TG",
-    .tp_doc       = "Representation of a tournoment graph",
-    .tp_basicsize = sizeof (PyUnamedTG),
-    .tp_itemsize  = 0,
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_new       = PyTournyNew,
-    .tp_methods   = PyTournomentMethods,
-    .tp_repr      = nullptr,
-    .tp_getset    = nullptr,
-};
+static PyTypeObject PyTournomentType
+    = { PyVarObject_HEAD_INIT (nullptr, 0).tp_name = "tourny.unnamed_TG",
+        .tp_doc       = "Representation of a tournoment graph",
+        .tp_basicsize = sizeof (PyUnamedTG),
+        .tp_itemsize  = 0,
+        .tp_flags     = Py_TPFLAGS_DEFAULT,
+        .tp_new       = PyTournyNew,
+        .tp_methods   = PyTournomentMethods,
+        .tp_repr      = nullptr,
+        .tp_getset    = nullptr,
+        .tp_iter      = PyObject_SelfIter,
+        .tp_iternext  = (iternextfunc)PyUTGNext };
 
 ///////////////////////////////////
 /// Upset Generator Code
