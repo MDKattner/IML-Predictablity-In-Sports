@@ -9,11 +9,12 @@ GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
 OUT_PATH = f"{DATA_DIR}/nba_division_series_results.csv"
 
 ANOMALIES_DIR = f"{DATA_DIR}/anomalies"
-GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/nba_games_played_variation_2004_2024.csv"
-TIED_SERIES_PATH = f"{ANOMALIES_DIR}/nba_tied_division_series_2004_2024.csv"
+GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/nba_games_played_variation.csv"
+TIED_SERIES_PATH = f"{ANOMALIES_DIR}/nba_tied_division_series.csv"
+
 
 def load_division_lookup():
-    """Returns dict: (season, team_code) -> division name"""
+    """Returns dict: (season, team_code) -> division name."""
     lookup = {}
     with open(MEMBERSHIP_PATH) as f:
         reader = csv.DictReader(f)
@@ -24,11 +25,11 @@ def load_division_lookup():
             teams = teams_str.split(",")
             for team in teams:
                 lookup[(season, team)] = division
-
     return lookup
 
+
 def load_in_division_games(division_lookup):
-    """Returns dict: (season, division, pair) -> list of (winner_code, is_tie) tuples"""
+    """Returns dict: (season, division, pair) -> list of (winner_code, is_tie) tuples."""
     pair_games = defaultdict(list)
     with open(GAME_LOG_PATH) as f:
         reader = csv.DictReader(f)
@@ -56,6 +57,7 @@ def load_in_division_games(division_lookup):
             pair_games[(season, div1, pair)].append((winner, is_tie))
     return pair_games
 
+
 def summarize(pair_games):
     rows = []
     for (season, division, pair), games in pair_games.items():
@@ -72,7 +74,7 @@ def summarize(pair_games):
             result = "TIE"
         rows.append({
             "season": season,
-            "league": "NBA", 
+            "league": "NBA",
             "division": division,
             "team1": team1,
             "team2": team2,
@@ -84,6 +86,7 @@ def summarize(pair_games):
         })
     rows.sort(key=lambda r: (r["season"], r["division"], r["team1"], r["team2"]))
     return rows
+
 
 def write_csv(rows):
     fieldnames = ["season", "league", "division", "team1", "team2", "result",

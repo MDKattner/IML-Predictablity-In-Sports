@@ -4,14 +4,14 @@ from collections import defaultdict
 from math import comb
 
 DATA_DIR = "Data"
-MEMBERSHIP_PATH = f"{DATA_DIR}/mlb_division_membership.csv"
+MEMBERSHIP_PATH = f"{DATA_DIR}/nfl_division_membership.csv"
 GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
-OUT_PATH = f"{DATA_DIR}/mlb_division_series_results.csv"
+OUT_PATH = f"{DATA_DIR}/nfl_division_series_results.csv"
 
 ANOMALIES_DIR = f"{DATA_DIR}/anomalies"
-GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/games_played_variation.csv"
-TIED_SERIES_PATH = f"{ANOMALIES_DIR}/tied_division_series.csv"
-TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/individual_tie_games_in_division.csv"
+GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/nfl_games_played_variation.csv"
+TIED_SERIES_PATH = f"{ANOMALIES_DIR}/nfl_tied_division_series.csv"
+TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/nfl_individual_tie_games_in_division.csv"
 
 
 def load_division_lookup():
@@ -35,7 +35,7 @@ def load_in_division_games(division_lookup):
     with open(GAME_LOG_PATH) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row["league"] != "MLB":
+            if row["league"] != "NFL":
                 continue
             season = int(row["season"])
             team1 = row["team1"]
@@ -75,7 +75,7 @@ def summarize(pair_games):
             result = "TIE"
         rows.append({
             "season": season,
-            "league": "MLB",
+            "league": "NFL",
             "division": division,
             "team1": team1,
             "team2": team2,
@@ -116,7 +116,7 @@ def verify(rows, division_lookup):
 def print_discrepancy_report(rows):
     os.makedirs(ANOMALIES_DIR, exist_ok=True)
 
-    print("\n=== DISCREPANCY REPORT (for team meeting) ===\n")
+    print("\n=== NFL REPORT (for team meeting) ===\n")
 
     games_by_season = defaultdict(set)
     for r in rows:
@@ -130,19 +130,21 @@ def print_discrepancy_report(rows):
             print(f"  {season}: {counts}")
             writer.writerow({"season": season, "distinct_games_played_counts": ";".join(str(c) for c in counts)})
 
+    # NFL plays an EVEN 2 games per intra-division pair, so tied series (1-1) are expected
+    # and common - not a data anomaly, but recorded because the upset definition treats a
+    # tied series as 1/2 an upset.
     tied_series = [r for r in rows if r["result"] == "TIE"]
-    print(f"\nTrue tied division series (wins1 == wins2): {len(tied_series)}")
+    print(f"\nTied division series (wins1 == wins2): {len(tied_series)}")
     with open(TIED_SERIES_PATH, "w", newline="") as f:
         fieldnames = ["season", "division", "team1", "team2", "wins1", "wins2", "ties", "games_played"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for r in tied_series:
-            print(f"  {r['season']} {r['division']}: {r['team1']} vs {r['team2']} "
-                  f"({r['wins1']}-{r['wins2']}, {r['ties']} tie game(s))")
             writer.writerow({k: r[k] for k in fieldnames})
 
+    # NFL games can genuinely end tied (after overtime), so track individual tie games too.
     rows_with_tie_games = [r for r in rows if r["ties"] > 0]
-    print(f"\nPairs whose season series included at least one 0-0/tied individual game: "
+    print(f"\nPairs whose season series included at least one tied individual game: "
           f"{len(rows_with_tie_games)}")
     with open(TIE_GAMES_IN_DIVISION_PATH, "w", newline="") as f:
         fieldnames = ["season", "division", "team1", "team2", "ties", "games_played"]
@@ -154,8 +156,8 @@ def print_discrepancy_report(rows):
             writer.writerow({k: r[k] for k in fieldnames})
 
     print("\n=== END REPORT ===\n")
-    print(f"Written to {ANOMALIES_DIR}/: games_played_variation, tied_division_series, "
-          f"individual_tie_games_in_division")
+    print(f"Written to {ANOMALIES_DIR}/: nfl_games_played_variation, nfl_tied_division_series, "
+          f"nfl_individual_tie_games_in_division")
 
 
 if __name__ == "__main__":
