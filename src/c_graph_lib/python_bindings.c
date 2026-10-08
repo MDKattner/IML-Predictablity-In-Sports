@@ -21,7 +21,27 @@
 typedef struct
 {
     PyObject_HEAD UnnamedTG TG;
+    bool started;
 } PyUnamedTG;
+
+static PyObject *
+u128_to_py (u128 n)
+{
+    return PyLong_FromUnsignedNativeBytes (&n, sizeof (n),
+                                           Py_ASNATIVEBYTES_NATIVE_ENDIAN);
+}
+
+static PyObject *
+PyTGSeed (PyUnamedTG *self)
+{
+    u128 upper_bound = (u128)1 << edgesOrder (self->TG.order);
+    if (self->TG.graph >= upper_bound)
+        {
+            return PyLong_FromLong ((i64)0);
+        }
+
+    return u128_to_py (self->TG.graph);
+}
 
 /*
  * Returns the pair representations of the edges as a list
@@ -63,18 +83,22 @@ static PyObject *
 PyUTGNext (PyUnamedTG *self)
 {
     u128 upper_bound = (u128)1 << edgesOrder (self->TG.order);
-    if (self->TG.graph >= upper_bound)
+    u128 next_graph  = self->started ? self->TG.graph + 1 : self->TG.graph;
+    if (next_graph >= upper_bound)
         {
             PyErr_SetNone (PyExc_StopIteration);
             return nullptr;
         }
-    self->TG.graph++;
+    self->TG.graph = next_graph;
+    self->started  = true;
     return Py_NewRef (self);
 }
 
 static PyMethodDef PyTournomentMethods[]
     = { { "to_tuple", (PyCFunction)PyTGToTupples, METH_NOARGS,
           "Returns the tournoment graph as a list of tuples of edges" },
+        { "to_seed", (PyCFunction)PyTGSeed, METH_NOARGS,
+          "Returns the integer representation of the tournoment graph" },
         { nullptr } };
 
 static PyObject *
@@ -95,8 +119,9 @@ PyTournyNew (PyTypeObject *type, PyObject *args, PyObject *kwds)
             Py_DECREF (self);
             return nullptr;
         }
-    self->TG.order = order;
-    self->TG.graph = 0;
+    self->TG.order      = order;
+    self->TG.graph      = 0;
+    self->started       = false;
     return (PyObject *)self;
 }
 
@@ -120,6 +145,7 @@ static PyTypeObject PyTournomentType
 typedef struct
 {
     PyObject_HEAD UTGArena *arena;
+    bool started;
 } PyUpsetGenerator;
 
 /*
@@ -129,14 +155,17 @@ typedef struct
 static PyObject *
 PyUpsetGeneratorNext (PyUpsetGenerator *self)
 {
-    UTGArena *arena  = self->arena;
-    u128 upper_bound = (u128)1 << edgesOrder (arena->tg.order);
-    if (arena->tg.graph >= upper_bound)
+    UTGArena *arena    = self->arena;
+    u128 upper_bound   = (u128)1 << edgesOrder (arena->tg.order);
+    u128 next_graph    = self->started ? arena->tg.graph + 1
+                                       : arena->tg.graph;
+    if (next_graph >= upper_bound)
         {
             PyErr_SetNone (PyExc_StopIteration);
             return nullptr;
         }
-    arena->tg.graph++;
+    arena->tg.graph = next_graph;
+    self->started   = true;
     memset (arena->wins, 0, arena->tg.order);
     winVectorReplace (&arena->tg, arena->wins);
     u8 upsets = countUpsetsWithWinVec (&arena->tg, arena->wins);
@@ -199,6 +228,7 @@ PyUpsetGeneratorNew (PyTypeObject *type, PyObject *args, PyObject *kwds)
         }
     self->arena->tg.graph = initial_graph;
     self->arena->tg.order = (u8)order;
+    self->started         = false;
     return (PyObject *)self;
 }
 
@@ -209,6 +239,7 @@ PyCurrentGraph (PyUpsetGenerator *self)
         = (PyUnamedTG *)PyTournomentType.tp_alloc (&PyTournomentType, 1);
     TG_out->TG.graph = self->arena->tg.graph;
     TG_out->TG.order = self->arena->tg.order;
+    TG_out->started  = false;
     return (PyObject *)TG_out;
 }
 

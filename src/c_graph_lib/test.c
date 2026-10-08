@@ -11,7 +11,7 @@ int
 main (int argc, char *argv[])
 {
     u8 order     = (u8)atoi (argv[1]);
-    u8 edges     = edgesOrder (order);
+    u32 graphs   = 1 << edgesOrder (order);
     UnnamedTG TG = { .graph = 0, .order = order };
     //    u8 *win_vec  = winVector (&TG);
     //
@@ -25,16 +25,21 @@ main (int argc, char *argv[])
     //    printf ("Upsets: %u", countUpsetsWithWinVec (&TG, win_vec));
     //
     //    free (win_vec);
-    u8 max_upsets    = 0;
-    u128 upper_bound = 1;
-    upper_bound      = upper_bound << edges;
-    for (; TG.graph < upper_bound; TG.graph++)
+    //    u8 max_upsets    = 0;
+    //    u128 upper_bound = 1;
+    //    upper_bound      = upper_bound << edges;
+    //    for (; TG.graph < upper_bound; TG.graph++)
+    //        {
+    //            u8 current_upsets = countUpsets (&TG);
+    //            if (current_upsets > max_upsets)
+    //                max_upsets = current_upsets;
+    //        }
+    //    printf ("Max Upsets: %u", max_upsets);
+    //    //    printf ("Max upsets for order %u: %u", order, maxUpsets
+    //    (order));
+    for (; TG.graph < graphs; TG.graph++)
         {
-            u8 current_upsets = countUpsets (&TG);
-            if (current_upsets > max_upsets)
-                max_upsets = current_upsets;
+            printf ("Seed is %lu\n", (u64)TG.graph);
         }
-    printf ("Max Upsets: %u", max_upsets);
-    //    printf ("Max upsets for order %u: %u", order, maxUpsets (order));
     return 0;
 }
