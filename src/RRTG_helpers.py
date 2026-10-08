@@ -1,6 +1,7 @@
 from sage.all import *
 import pandas as pd
 import numpy as np
+import c_graph_lib.bin.tourny as tou
 
 
 def num_upsets(g: DiGraph) -> int:
@@ -166,26 +167,37 @@ def stats_up_to(n: int) -> pd.DataFrame:
     )
     return df_out
 
+
 def avg_upsets(n: int):
-    avg = float(sum(tou.upset_generator(int(n), int(0))) / (1 << (n*(n-1)/2)))
+    avg = Rational(sum(tou.upset_generator(int(n), int(0)))) / Rational(1 << ((n * (n - 1)) // 2))
     return avg
+
 
 def var_upsets(n: int):
     from functools import reduce
-    avg = avg_upsets(n)
-    return reduce(lambda x, y: 
-                  float(x) + (float(y) - avg)**2, 
-                  tou.upset_generator(int(n), int(0)), float(0.0)) / float(1 << (n*(n-1)/2))
+
+    avg: Rational = avg_upsets(n)
+    return reduce(
+        lambda x, y: Rational(x) + (Rational(y) - avg) ** 2,
+        tou.upset_generator(int(n), int(0)),
+        Rational(0),
+    ) / Rational(1 << ((n * (n - 1)) // 2))
+
 
 def avg_var_upsets(n: int):
     from functools import reduce
-    avg = avg_upsets(n)
+
+    avg: Rational = avg_upsets(n)
     return (
-        avg, 
-        reduce(lambda x, y: 
-                  float(x) + (float(y) - avg)**2, 
-                  tou.upset_generator(int(n), int(0)), float(0.0)) / float(1 << (n*(n-1)/2))
-           )
+        avg,
+        reduce(
+            lambda x, y: Rational(x) + (Rational(y) - avg) ** 2,
+            tou.upset_generator(int(n), int(0)),
+            Rational(0),
+        )
+        / Rational(1 << ((n * (n - 1)) // 2)),
+    )
+
 
 def str_upsets_not_upsets(g: DiGraph) -> list[tuple[int, int]]:
     """
