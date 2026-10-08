@@ -1,0 +1,203 @@
+season,division,num_teams,games_per_pair,teams,scoring_sequence,upset
+1985,Atlantic,5,6,"('BOS', 'PHI', 'NJN', 'WAS', 'NYK')","(4, 2, 1, 1, 0)",0
+1985,Central,6,6,"('ATL', 'MIL', 'DET', 'CLE', 'CHI', 'IND')","(4, 4, 3, 1, 0, 0)",0
+1985,Midwest,6,6,"('HOU', 'DAL', 'UTA', 'SAC', 'DEN', 'SAS')","(3, 2, 2, 1, 0, 0)",0
+1985,Pacific,6,6,"('LAL', 'POR', 'PHX', 'GSW', 'SEA', 'LAC')","(5, 4, 3, 1, 1, 0)",0
+1986,Atlantic,5,6,"('BOS', 'WAS', 'NJN', 'NYK', 'PHI')","(3, 2, 1, 0, 0)",0
+1986,Central,6,6,"('CHI', 'ATL', 'MIL', 'DET', 'CLE', 'IND')","(3, 2, 2, 1, 0, 0)",1
+1986,Midwest,6,6,"('DAL', 'UTA', 'HOU', 'DEN', 'SAC', 'SAS')","(3, 3, 2, 1, 1, 0)",0
+1986,Pacific,6,6,"('LAL', 'GSW', 'POR', 'PHX', 'SEA', 'LAC')","(5, 3, 3, 2, 2, 0)",1
+1987,Atlantic,5,6,"('BOS', 'PHI', 'WAS', 'NJN', 'NYK')","(4, 1, 1, 0, 0)",0
+1987,Central,6,5,"('DET', 'ATL', 'CHI', 'CLE', 'MIL', 'IND')","(4, 2, 2, 1, 1, 0)",0
+1987,Midwest,6,6,"('DAL', 'DEN', 'UTA', 'HOU', 'SAS', 'SAC')","(3, 3, 2, 1, 1, 0)",1
+1987,Pacific,6,6,"('LAL', 'POR', 'SEA', 'PHX', 'GSW', 'LAC')","(4, 3, 3, 2, 0, 0)",0
+1988,Atlantic,6,6,"('NYK', 'PHI', 'WAS', 'BOS', 'NJN', 'CHA')","(3, 3, 3, 2, 1, 0)",0
+1988,Central,6,6,"('ATL', 'DET', 'CHI', 'CLE', 'MIL', 'IND')","(4, 3, 2, 2, 2, 0)",2
+1988,Midwest,6,6,"('DAL', 'HOU', 'UTA', 'DEN', 'SAS', 'MIA')","(3, 3, 3, 2, 1, 0)",1
+1988,Pacific,7,6,"('LAL', 'PHX', 'SEA', 'POR', 'SAC', 'GSW', 'LAC')","(5, 4, 4, 3, 2, 1, 0)",1
+1989,Atlantic,6,5,"('BOS', 'PHI', 'NYK', 'WAS', 'NJN', 'MIA')","(4, 4, 3, 3, 1, 0)",1
+1989,Central,7,5,"('DET', 'CHI', 'CLE', 'IND', 'ATL', 'MIL', 'ORL')","(5, 4, 4, 4, 3, 1, 0)",1
+1989,Midwest,7,4,"('DAL', 'SAS', 'UTA', 'DEN', 'HOU', 'CHA', 'MIN')","(4, 4, 4, 3, 2, 1, 0)",3
+1989,Pacific,7,4,"('LAL', 'POR', 'PHX', 'GSW', 'LAC', 'SAC', 'SEA')","(5, 5, 4, 2, 1, 1, 1)",1
+1990,Atlantic,6,5,"('BOS', 'NYK', 'PHI', 'MIA', 'WAS', 'NJN')","(4, 4, 4, 1, 1, 0)",0
+1990,Central,7,5,"('CHI', 'MIL', 'DET', 'ATL', 'IND', 'CHA', 'CLE')","(6, 5, 4, 2, 2, 1, 1)",1
+1990,Midwest,7,4,"('SAS', 'UTA', 'HOU', 'ORL', 'DAL', 'DEN', 'MIN')","(5, 5, 4, 2, 1, 1, 1)",0
+1990,Pacific,7,5,"('LAL', 'PHX', 'POR', 'GSW', 'SEA', 'LAC', 'SAC')","(5, 5, 5, 2, 2, 1, 1)",1
+1991,Atlantic,7,5,"('BOS', 'NYK', 'NJN', 'MIA', 'PHI', 'WAS', 'ORL')","(5, 5, 3, 2, 2, 2, 1)",3
+1991,Central,7,4,"('CHI', 'CLE', 'DET', 'IND', 'ATL', 'CHA', 'MIL')","(6, 5, 3, 2, 1, 1, 1)",1
+1991,Midwest,6,5,"('UTA', 'DAL', 'HOU', 'SAS', 'MIN', 'DEN')","(5, 3, 3, 3, 1, 0)",0
+1991,Pacific,7,5,"('GSW', 'POR', 'PHX', 'SEA', 'LAL', 'LAC', 'SAC')","(5, 5, 4, 3, 2, 1, 1)",2
+1992,Atlantic,7,4,"('BOS', 'NYK', 'NJN', 'ORL', 'PHI', 'MIA', 'WAS')","(5, 5, 4, 2, 2, 1, 1)",1
+1992,Central,7,5,"('CLE', 'CHI', 'ATL', 'CHA', 'DET', 'IND', 'MIL')","(6, 4, 2, 2, 2, 1, 1)",1
+1992,Midwest,6,6,"('HOU', 'SAS', 'UTA', 'DEN', 'MIN', 'DAL')","(5, 3, 3, 2, 1, 0)",0
+1992,Pacific,7,5,"('SEA', 'LAC', 'PHX', 'LAL', 'POR', 'GSW', 'SAC')","(6, 4, 4, 3, 3, 1, 0)",1
+1993,Atlantic,7,5,"('NJN', 'NYK', 'ORL', 'MIA', 'BOS', 'WAS', 'PHI')","(5, 4, 4, 3, 2, 1, 0)",1
+1993,Central,7,5,"('ATL', 'CHI', 'CLE', 'IND', 'CHA', 'MIL', 'DET')","(5, 5, 4, 3, 2, 1, 0)",2
+1993,Midwest,6,5,"('SAS', 'UTA', 'DEN', 'HOU', 'DAL', 'MIN')","(4, 4, 3, 2, 1, 0)",0
+1993,Pacific,7,5,"('SEA', 'GSW', 'PHX', 'POR', 'LAL', 'LAC', 'SAC')","(6, 4, 4, 3, 2, 1, 1)",2
+1994,Atlantic,7,5,"('NYK', 'ORL', 'BOS', 'PHI', 'NJN', 'MIA', 'WAS')","(5, 5, 3, 3, 2, 1, 1)",2
+1994,Central,7,4,"('IND', 'CHA', 'CLE', 'MIL', 'CHI', 'ATL', 'DET')","(4, 3, 3, 3, 2, 1, 0)",0
+1994,Midwest,6,5,"('SAS', 'UTA', 'HOU', 'DEN', 'DAL', 'MIN')","(5, 4, 3, 2, 1, 0)",0
+1994,Pacific,7,5,"('PHX', 'POR', 'GSW', 'LAL', 'SAC', 'SEA', 'LAC')","(5, 4, 3, 3, 3, 3, 0)",2
+1995,Atlantic,7,4,"('ORL', 'NYK', 'BOS', 'MIA', 'WAS', 'NJN', 'PHI')","(6, 4, 2, 2, 1, 0, 0)",0
+1995,Central,8,4,"('CHI', 'IND', 'ATL', 'CHA', 'CLE', 'DET', 'MIL', 'TOR')","(6, 4, 3, 3, 2, 2, 0, 0)",1
+1995,Midwest,7,4,"('SAS', 'DEN', 'HOU', 'UTA', 'DAL', 'MIN', 'VAN')","(5, 3, 3, 3, 1, 1, 0)",0
+1995,Pacific,7,4,"('SEA', 'LAL', 'SAC', 'GSW', 'LAC', 'PHX', 'POR')","(5, 4, 2, 1, 1, 1, 1)",0
+1996,Atlantic,7,4,"('NYK', 'MIA', 'WAS', 'ORL', 'NJN', 'PHI', 'BOS')","(5, 4, 4, 2, 1, 1, 0)",0
+1996,Central,8,4,"('CHI', 'ATL', 'DET', 'CHA', 'CLE', 'IND', 'MIL', 'TOR')","(7, 4, 4, 2, 2, 1, 1, 0)",1
+1996,Midwest,7,4,"('HOU', 'UTA', 'MIN', 'DAL', 'DEN', 'SAS', 'VAN')","(5, 5, 4, 2, 1, 1, 1)",1
+1996,Pacific,7,4,"('LAL', 'SEA', 'POR', 'PHX', 'LAC', 'SAC', 'GSW')","(4, 4, 3, 2, 1, 1, 0)",1
+1997,Atlantic,7,4,"('MIA', 'BOS', 'NJN', 'ORL', 'WAS', 'NYK', 'PHI')","(4, 2, 2, 2, 2, 1, 1)",2
+1997,Central,8,4,"('CHI', 'ATL', 'CHA', 'IND', 'CLE', 'DET', 'MIL', 'TOR')","(5, 4, 4, 4, 2, 1, 1, 0)",0
+1997,Midwest,7,4,"('UTA', 'SAS', 'HOU', 'MIN', 'DAL', 'VAN', 'DEN')","(6, 4, 3, 3, 2, 1, 0)",0
+1997,Pacific,7,4,"('SEA', 'LAL', 'PHX', 'POR', 'LAC', 'GSW', 'SAC')","(5, 3, 3, 3, 2, 0, 0)",0
+1998,Atlantic,7,3,"('MIA', 'NYK', 'ORL', 'PHI', 'BOS', 'NJN', 'WAS')","(4, 4, 4, 3, 2, 2, 1)",3
+1998,Central,8,3,"('DET', 'ATL', 'IND', 'CHA', 'MIL', 'CLE', 'TOR', 'CHI')","(6, 5, 5, 4, 4, 1, 1, 0)",2
+1998,Midwest,7,3,"('SAS', 'UTA', 'HOU', 'MIN', 'DAL', 'DEN', 'VAN')","(5, 5, 3, 3, 2, 1, 0)",0
+1998,Pacific,7,3,"('SAC', 'LAL', 'PHX', 'POR', 'SEA', 'GSW', 'LAC')","(4, 3, 3, 3, 2, 1, 0)",1
+1999,Atlantic,7,4,"('MIA', 'NYK', 'PHI', 'BOS', 'NJN', 'ORL', 'WAS')","(5, 3, 3, 2, 1, 1, 1)",0
+1999,Central,8,4,"('CHA', 'IND', 'DET', 'MIL', 'ATL', 'TOR', 'CLE', 'CHI')","(5, 5, 3, 3, 2, 2, 1, 0)",0
+1999,Midwest,7,4,"('MIN', 'SAS', 'UTA', 'DAL', 'HOU', 'DEN', 'VAN')","(4, 3, 3, 2, 1, 0, 0)",1
+1999,Pacific,7,4,"('LAL', 'POR', 'PHX', 'SAC', 'SEA', 'LAC', 'GSW')","(5, 5, 3, 2, 2, 1, 0)",0
+2000,Atlantic,7,4,"('PHI', 'NYK', 'ORL', 'MIA', 'BOS', 'NJN', 'WAS')","(5, 4, 4, 3, 2, 1, 0)",2
+2000,Central,8,4,"('CHA', 'MIL', 'IND', 'TOR', 'DET', 'CLE', 'ATL', 'CHI')","(5, 5, 3, 3, 2, 1, 0, 0)",0
+2000,Midwest,7,4,"('SAS', 'DAL', 'UTA', 'DEN', 'HOU', 'MIN', 'VAN')","(5, 3, 3, 2, 1, 1, 0)",0
+2000,Pacific,7,4,"('LAL', 'SAC', 'SEA', 'PHX', 'LAC', 'POR', 'GSW')","(4, 4, 3, 2, 1, 1, 0)",2
+2001,Atlantic,7,4,"('BOS', 'NJN', 'PHI', 'ORL', 'WAS', 'MIA', 'NYK')","(5, 4, 3, 2, 2, 1, 0)",4
+2001,Central,8,4,"('DET', 'TOR', 'CHA', 'MIL', 'ATL', 'CLE', 'IND', 'CHI')","(6, 4, 3, 3, 2, 2, 2, 0)",2
+2001,Midwest,7,4,"('SAS', 'DAL', 'MEM', 'MIN', 'DEN', 'UTA', 'HOU')","(5, 3, 2, 2, 1, 1, 0)",1
+2001,Pacific,7,4,"('LAL', 'SAC', 'POR', 'SEA', 'LAC', 'PHX', 'GSW')","(4, 3, 2, 2, 1, 1, 0)",0
+2002,Atlantic,7,4,"('NJN', 'PHI', 'BOS', 'WAS', 'ORL', 'MIA', 'NYK')","(4, 3, 2, 2, 1, 0, 0)",1
+2002,Central,8,4,"('DET', 'IND', 'NOH', 'MIL', 'ATL', 'CHI', 'CLE', 'TOR')","(4, 4, 3, 2, 1, 1, 1, 1)",1
+2002,Midwest,7,4,"('SAS', 'UTA', 'DAL', 'HOU', 'MIN', 'DEN', 'MEM')","(4, 4, 3, 2, 2, 0, 0)",0
+2002,Pacific,7,4,"('SAC', 'POR', 'LAL', 'PHX', 'SEA', 'GSW', 'LAC')","(4, 3, 2, 2, 2, 0, 0)",1
+2003,Atlantic,7,4,"('NYK', 'NJN', 'BOS', 'MIA', 'ORL', 'PHI', 'WAS')","(5, 4, 3, 3, 1, 1, 0)",3
+2003,Central,8,4,"('IND', 'DET', 'MIL', 'TOR', 'CLE', 'NOH', 'ATL', 'CHI')","(5, 4, 3, 3, 2, 2, 1, 1)",4
+2003,Midwest,7,4,"('SAS', 'DAL', 'MEM', 'MIN', 'DEN', 'UTA', 'HOU')","(3, 2, 2, 2, 1, 1, 0)",3
+2003,Pacific,7,4,"('LAL', 'SAC', 'GSW', 'LAC', 'POR', 'SEA', 'PHX')","(4, 4, 1, 1, 1, 1, 0)",1
+2004,Atlantic,5,4,"('NJN', 'BOS', 'PHI', 'NYK', 'TOR')","(3, 2, 2, 1, 1)",1
+2004,Central,5,4,"('IND', 'CHI', 'CLE', 'DET', 'MIL')","(1, 0, 0, 0, 0)",0
+2004,Northwest,5,4,"('SEA', 'MIN', 'DEN', 'POR', 'UTA')","(3, 2, 1, 0, 0)",0
+2004,Pacific,5,4,"('PHX', 'SAC', 'GSW', 'LAC', 'LAL')","(2, 2, 1, 1, 1)",1
+2004,Southeast,5,4,"('MIA', 'CHA', 'WAS', 'ORL', 'ATL')","(4, 2, 2, 1, 0)",0
+2004,Southwest,5,4,"('DAL', 'HOU', 'MEM', 'SAS', 'NOH')","(2, 2, 2, 2, 0)",0
+2005,Atlantic,5,4,"('BOS', 'NJN', 'PHI', 'TOR', 'NYK')","(3, 3, 3, 1, 0)",0
+2005,Central,5,4,"('DET', 'CLE', 'CHI', 'IND', 'MIL')","(4, 3, 0, 0, 0)",0
+2005,Northwest,5,4,"('UTA', 'DEN', 'SEA', 'MIN', 'POR')","(3, 2, 2, 0, 0)",1
+2005,Pacific,5,4,"('PHX', 'LAC', 'LAL', 'SAC', 'GSW')","(2, 1, 1, 1, 0)",0
+2005,Southeast,5,4,"('MIA', 'WAS', 'CHA', 'ORL', 'ATL')","(3, 2, 1, 1, 0)",0
+2005,Southwest,5,4,"('DAL', 'SAS', 'NOK', 'MEM', 'HOU')","(3, 3, 2, 1, 0)",0
+2006,Atlantic,5,4,"('TOR', 'PHI', 'BOS', 'NJN', 'NYK')","(3, 2, 1, 1, 0)",0
+2006,Central,5,4,"('CHI', 'CLE', 'DET', 'IND', 'MIL')","(3, 2, 2, 1, 0)",0
+2006,Northwest,5,4,"('DEN', 'UTA', 'SEA', 'MIN', 'POR')","(2, 2, 1, 0, 0)",0
+2006,Pacific,5,4,"('PHX', 'LAL', 'GSW', 'LAC', 'SAC')","(3, 2, 1, 0, 0)",0
+2006,Southeast,5,4,"('MIA', 'ATL', 'CHA', 'ORL', 'WAS')","(2, 1, 1, 1, 1)",1
+2006,Southwest,5,4,"('DAL', 'NOK', 'SAS', 'HOU', 'MEM')","(4, 2, 2, 1, 0)",0
+2007,Atlantic,5,4,"('BOS', 'TOR', 'NYK', 'PHI', 'NJN')","(4, 3, 1, 1, 0)",0
+2007,Central,5,4,"('CHI', 'DET', 'CLE', 'IND', 'MIL')","(3, 3, 1, 1, 1)",0
+2007,Northwest,5,4,"('DEN', 'POR', 'UTA', 'SEA', 'MIN')","(2, 2, 2, 1, 0)",0
+2007,Pacific,5,4,"('LAL', 'GSW', 'PHX', 'LAC', 'SAC')","(3, 2, 2, 1, 0)",0
+2007,Southeast,5,4,"('ORL', 'WAS', 'ATL', 'CHA', 'MIA')","(3, 2, 1, 1, 0)",0
+2007,Southwest,5,4,"('DAL', 'SAS', 'HOU', 'NOH', 'MEM')","(2, 2, 1, 1, 0)",0
+2008,Atlantic,5,4,"('BOS', 'NJN', 'PHI', 'NYK', 'TOR')","(4, 1, 1, 0, 0)",0
+2008,Central,5,4,"('CLE', 'CHI', 'DET', 'IND', 'MIL')","(4, 2, 1, 0, 0)",0
+2008,Northwest,5,4,"('DEN', 'POR', 'UTA', 'MIN', 'OKC')","(2, 2, 2, 0, 0)",0
+2008,Pacific,5,4,"('LAL', 'PHX', 'GSW', 'SAC', 'LAC')","(4, 3, 1, 1, 0)",0
+2008,Southeast,5,4,"('ORL', 'ATL', 'MIA', 'CHA', 'WAS')","(4, 3, 2, 1, 0)",0
+2008,Southwest,5,4,"('NOH', 'HOU', 'SAS', 'DAL', 'MEM')","(2, 1, 1, 0, 0)",1
+2009,Atlantic,5,4,"('BOS', 'TOR', 'NYK', 'PHI', 'NJN')","(4, 3, 1, 1, 0)",0
+2009,Central,5,4,"('CLE', 'CHI', 'MIL', 'IND', 'DET')","(3, 2, 2, 1, 0)",0
+2009,Northwest,5,4,"('DEN', 'OKC', 'POR', 'UTA', 'MIN')","(4, 2, 2, 1, 0)",1
+2009,Pacific,5,4,"('LAL', 'PHX', 'SAC', 'GSW', 'LAC')","(3, 3, 1, 0, 0)",0
+2009,Southeast,5,4,"('CHA', 'MIA', 'ORL', 'ATL', 'WAS')","(2, 2, 2, 1, 0)",0
+2009,Southwest,5,4,"('DAL', 'HOU', 'NOH', 'SAS', 'MEM')","(2, 1, 1, 1, 0)",0
+2010,Atlantic,5,4,"('BOS', 'NYK', 'PHI', 'NJN', 'TOR')","(4, 2, 1, 0, 0)",0
+2010,Central,5,4,"('CHI', 'DET', 'IND', 'MIL', 'CLE')","(4, 1, 1, 1, 0)",0
+2010,Northwest,5,4,"('OKC', 'POR', 'DEN', 'UTA', 'MIN')","(4, 2, 1, 1, 0)",0
+2010,Pacific,5,4,"('LAL', 'PHX', 'LAC', 'SAC', 'GSW')","(4, 2, 1, 1, 0)",1
+2010,Southeast,5,4,"('MIA', 'ATL', 'ORL', 'CHA', 'WAS')","(3, 2, 2, 0, 0)",0
+2010,Southwest,5,4,"('SAS', 'DAL', 'HOU', 'MEM', 'NOH')","(2, 1, 1, 1, 1)",0
+2011,Atlantic,5,3,"('NYK', 'PHI', 'BOS', 'NJN', 'TOR')","(2, 2, 1, 0, 0)",0
+2011,Central,5,3,"('CHI', 'IND', 'MIL', 'CLE', 'DET')","(4, 3, 2, 0, 0)",0
+2011,Northwest,5,4,"('OKC', 'UTA', 'DEN', 'MIN', 'POR')","(4, 3, 1, 1, 1)",0
+2011,Pacific,5,4,"('GSW', 'LAL', 'PHX', 'LAC', 'SAC')","(2, 2, 2, 1, 1)",1
+2011,Southeast,5,4,"('ATL', 'MIA', 'ORL', 'WAS', 'CHA')","(3, 2, 2, 2, 0)",1
+2011,Southwest,5,3,"('DAL', 'MEM', 'SAS', 'HOU', 'NOH')","(2, 2, 2, 1, 0)",0
+2012,Atlantic,5,4,"('BKN', 'NYK', 'BOS', 'PHI', 'TOR')","(3, 2, 1, 1, 0)",0
+2012,Central,5,4,"('IND', 'CHI', 'DET', 'CLE', 'MIL')","(3, 2, 2, 0, 0)",0
+2012,Northwest,5,4,"('DEN', 'OKC', 'UTA', 'POR', 'MIN')","(3, 2, 2, 1, 0)",0
+2012,Pacific,5,4,"('LAC', 'GSW', 'LAL', 'SAC', 'PHX')","(3, 2, 2, 1, 0)",2
+2012,Southeast,5,4,"('MIA', 'ATL', 'CHA', 'ORL', 'WAS')","(4, 3, 2, 0, 0)",0
+2012,Southwest,5,4,"('SAS', 'DAL', 'MEM', 'HOU', 'NOH')","(3, 2, 2, 1, 0)",0
+2013,Atlantic,5,4,"('BKN', 'NYK', 'TOR', 'PHI', 'BOS')","(2, 2, 2, 1, 0)",0
+2013,Central,5,4,"('CHI', 'IND', 'CLE', 'DET', 'MIL')","(3, 3, 1, 1, 0)",0
+2013,Northwest,5,4,"('OKC', 'POR', 'MIN', 'DEN', 'UTA')","(3, 3, 1, 0, 0)",0
+2013,Pacific,5,4,"('LAC', 'GSW', 'LAL', 'PHX', 'SAC')","(3, 2, 1, 1, 0)",0
+2013,Southeast,5,4,"('MIA', 'WAS', 'ATL', 'CHA', 'ORL')","(2, 2, 1, 1, 0)",1
+2013,Southwest,5,4,"('SAS', 'DAL', 'HOU', 'NOP', 'MEM')","(3, 2, 2, 1, 0)",1
+2014,Atlantic,5,4,"('BOS', 'BKN', 'TOR', 'NYK', 'PHI')","(3, 2, 2, 1, 0)",0
+2014,Central,5,4,"('CLE', 'CHI', 'MIL', 'DET', 'IND')","(3, 1, 1, 0, 0)",0
+2014,Northwest,5,4,"('OKC', 'POR', 'DEN', 'UTA', 'MIN')","(2, 2, 1, 1, 0)",0
+2014,Pacific,5,4,"('GSW', 'LAC', 'SAC', 'PHX', 'LAL')","(4, 3, 2, 1, 0)",0
+2014,Southeast,5,4,"('ATL', 'WAS', 'MIA', 'CHA', 'ORL')","(3, 2, 1, 0, 0)",0
+2014,Southwest,5,4,"('DAL', 'HOU', 'MEM', 'NOP', 'SAS')","(1, 1, 1, 1, 1)",0
+2015,Atlantic,5,4,"('TOR', 'BOS', 'NYK', 'BKN', 'PHI')","(4, 2, 1, 0, 0)",0
+2015,Central,5,4,"('CHI', 'DET', 'CLE', 'IND', 'MIL')","(3, 3, 2, 2, 0)",1
+2015,Northwest,5,4,"('OKC', 'POR', 'UTA', 'DEN', 'MIN')","(3, 3, 2, 1, 0)",0
+2015,Pacific,5,4,"('GSW', 'LAC', 'SAC', 'PHX', 'LAL')","(4, 2, 2, 1, 0)",0
+2015,Southeast,5,4,"('MIA', 'ATL', 'CHA', 'WAS', 'ORL')","(2, 1, 1, 1, 0)",0
+2015,Southwest,5,4,"('SAS', 'DAL', 'HOU', 'MEM', 'NOP')","(4, 1, 1, 1, 0)",0
+2016,Atlantic,5,4,"('TOR', 'BOS', 'PHI', 'BKN', 'NYK')","(4, 3, 1, 0, 0)",0
+2016,Central,5,4,"('MIL', 'CLE', 'CHI', 'IND', 'DET')","(3, 2, 1, 1, 0)",2
+2016,Northwest,5,4,"('OKC', 'POR', 'UTA', 'DEN', 'MIN')","(3, 3, 1, 0, 0)",0
+2016,Pacific,5,4,"('GSW', 'LAC', 'SAC', 'LAL', 'PHX')","(4, 3, 1, 0, 0)",0
+2016,Southeast,5,4,"('CHA', 'WAS', 'MIA', 'ORL', 'ATL')","(2, 2, 1, 1, 0)",1
+2016,Southwest,5,4,"('SAS', 'HOU', 'DAL', 'MEM', 'NOP')","(3, 2, 0, 0, 0)",0
+2017,Atlantic,5,4,"('BOS', 'TOR', 'PHI', 'NYK', 'BKN')","(3, 3, 2, 1, 0)",0
+2017,Central,5,4,"('CLE', 'IND', 'DET', 'CHI', 'MIL')","(3, 3, 2, 0, 0)",1
+2017,Northwest,5,4,"('DEN', 'MIN', 'OKC', 'POR', 'UTA')","(2, 2, 1, 1, 0)",0
+2017,Pacific,5,4,"('GSW', 'LAC', 'LAL', 'PHX', 'SAC')","(3, 3, 1, 1, 0)",0
+2017,Southeast,5,4,"('CHA', 'MIA', 'WAS', 'ATL', 'ORL')","(3, 2, 1, 0, 0)",1
+2017,Southwest,5,4,"('HOU', 'NOP', 'SAS', 'DAL', 'MEM')","(3, 2, 2, 1, 0)",0
+2018,Atlantic,5,4,"('TOR', 'BOS', 'BKN', 'PHI', 'NYK')","(3, 2, 1, 1, 0)",0
+2018,Central,5,4,"('MIL', 'IND', 'DET', 'CHI', 'CLE')","(4, 3, 2, 1, 0)",0
+2018,Northwest,5,4,"('DEN', 'OKC', 'UTA', 'MIN', 'POR')","(3, 2, 2, 1, 1)",2
+2018,Pacific,5,4,"('GSW', 'LAC', 'LAL', 'SAC', 'PHX')","(4, 2, 2, 1, 0)",0
+2018,Southeast,5,4,"('CHA', 'ORL', 'ATL', 'MIA', 'WAS')","(2, 2, 1, 1, 1)",1
+2018,Southwest,5,4,"('HOU', 'SAS', 'MEM', 'NOP', 'DAL')","(2, 2, 1, 1, 0)",0
+2019,Atlantic,5,4,"('PHI', 'TOR', 'BOS', 'BKN', 'NYK')","(3, 3, 2, 0, 0)",1
+2019,Central,5,4,"('MIL', 'CHI', 'IND', 'DET', 'CLE')","(4, 2, 2, 1, 0)",1
+2019,Northwest,5,4,"('DEN', 'OKC', 'UTA', 'MIN', 'POR')","(4, 2, 2, 0, 0)",0
+2019,Pacific,5,3,"('LAL', 'SAC', 'LAC', 'GSW', 'PHX')","(3, 2, 1, 0, 0)",0
+2019,Southeast,5,2,"('MIA', 'ORL', 'WAS', 'ATL', 'CHA')","(3, 2, 2, 1, 0)",0
+2019,Southwest,5,3,"('DAL', 'HOU', 'SAS', 'NOP', 'MEM')","(3, 3, 2, 1, 0)",1
+2020,Atlantic,5,3,"('PHI', 'BKN', 'NYK', 'BOS', 'TOR')","(4, 2, 2, 1, 1)",1
+2020,Central,5,3,"('MIL', 'CHI', 'CLE', 'IND', 'DET')","(4, 2, 2, 2, 0)",0
+2020,Northwest,5,3,"('DEN', 'UTA', 'POR', 'MIN', 'OKC')","(3, 3, 2, 1, 1)",1
+2020,Pacific,5,3,"('LAC', 'PHX', 'GSW', 'LAL', 'SAC')","(4, 3, 1, 1, 1)",0
+2020,Southeast,5,3,"('CHA', 'ATL', 'MIA', 'ORL', 'WAS')","(4, 3, 2, 1, 0)",0
+2020,Southwest,5,3,"('DAL', 'MEM', 'NOP', 'SAS', 'HOU')","(3, 2, 2, 2, 1)",1
+2021,Atlantic,5,4,"('BKN', 'TOR', 'BOS', 'NYK', 'PHI')","(2, 2, 1, 0, 0)",1
+2021,Central,5,4,"('CHI', 'MIL', 'CLE', 'DET', 'IND')","(3, 3, 2, 1, 0)",1
+2021,Northwest,5,4,"('UTA', 'MIN', 'DEN', 'OKC', 'POR')","(4, 3, 1, 1, 0)",0
+2021,Pacific,5,4,"('GSW', 'LAC', 'PHX', 'LAL', 'SAC')","(3, 1, 1, 0, 0)",0
+2021,Southeast,5,4,"('MIA', 'ATL', 'CHA', 'WAS', 'ORL')","(4, 2, 2, 1, 0)",0
+2021,Southwest,5,4,"('DAL', 'MEM', 'SAS', 'NOP', 'HOU')","(4, 3, 2, 1, 0)",0
+2022,Atlantic,5,4,"('BOS', 'PHI', 'BKN', 'NYK', 'TOR')","(3, 2, 1, 1, 1)",1
+2022,Central,5,4,"('CLE', 'MIL', 'CHI', 'IND', 'DET')","(3, 2, 1, 1, 0)",0
+2022,Northwest,5,4,"('DEN', 'OKC', 'POR', 'MIN', 'UTA')","(2, 2, 2, 1, 0)",1
+2022,Pacific,5,4,"('SAC', 'GSW', 'LAC', 'LAL', 'PHX')","(2, 1, 1, 1, 1)",1
+2022,Southeast,5,4,"('ATL', 'MIA', 'CHA', 'ORL', 'WAS')","(2, 2, 1, 1, 1)",1
+2022,Southwest,5,4,"('MEM', 'DAL', 'NOP', 'HOU', 'SAS')","(3, 2, 2, 0, 0)",0
+2023,Atlantic,5,4,"('BOS', 'NYK', 'BKN', 'PHI', 'TOR')","(4, 3, 1, 1, 0)",0
+2023,Central,5,4,"('CLE', 'IND', 'MIL', 'CHI', 'DET')","(2, 2, 2, 1, 0)",1
+2023,Northwest,5,4,"('OKC', 'DEN', 'MIN', 'UTA', 'POR')","(3, 2, 2, 1, 0)",0
+2023,Pacific,5,4,"('LAC', 'LAL', 'PHX', 'GSW', 'SAC')","(2, 2, 2, 1, 1)",2
+2023,Southeast,5,4,"('MIA', 'ATL', 'ORL', 'CHA', 'WAS')","(4, 2, 2, 1, 0)",1
+2023,Southwest,5,4,"('DAL', 'HOU', 'MEM', 'NOP', 'SAS')","(2, 2, 1, 1, 0)",0
+2024,Atlantic,5,4,"('BOS', 'NYK', 'TOR', 'BKN', 'PHI')","(4, 3, 2, 0, 0)",0
+2024,Central,5,4,"('CLE', 'IND', 'MIL', 'DET', 'CHI')","(3, 3, 2, 1, 0)",1
+2024,Northwest,5,4,"('MIN', 'OKC', 'DEN', 'POR', 'UTA')","(2, 2, 1, 0, 0)",0
+2024,Pacific,5,4,"('LAL', 'LAC', 'PHX', 'SAC', 'GSW')","(3, 2, 1, 1, 0)",1
+2024,Southeast,5,4,"('MIA', 'ORL', 'ATL', 'WAS', 'CHA')","(2, 2, 1, 1, 0)",0
+2024,Southwest,5,4,"('HOU', 'MEM', 'DAL', 'NOP', 'SAS')","(4, 3, 2, 0, 0)",0
