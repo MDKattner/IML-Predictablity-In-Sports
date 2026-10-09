@@ -1,0 +1,10 @@
+BasedOnStyle: GNU
+IndentWidth: 4
+AlignConsecutiveAssignments:
+  Enabled: true
+  AlignFunctionDeclarations: true
+  AlignCompound: true 
+  AcrossEmptyLines: false
+  AcrossComments: false
+  AlignFunctionPointers: true
+  PadOperators: true

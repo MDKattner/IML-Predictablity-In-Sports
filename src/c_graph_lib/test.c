@@ -1,0 +1,45 @@
+#include "./include/types.h"
+#include "include/functions.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+// DO NOT CHANGE INCLUDES ORDER THIS MUST ALWAYS BE AT THE TOP BECAUSE THIS
+// PROJECT IS A UNITY BUILD
+#include "./include/functions.c"
+
+int
+main (int argc, char *argv[])
+{
+    u8 order     = (u8)atoi (argv[1]);
+    u32 graphs   = 1 << edgesOrder (order);
+    UnnamedTG TG = { .graph = 0, .order = order };
+    //    u8 *win_vec  = winVector (&TG);
+    //
+    //    printf ("[");
+    //    for (u8 i = 0; i < TG.order; i++)
+    //        {
+    //            printf (" %u", win_vec[i]);
+    //        }
+    //    printf (" ]\n");
+    //
+    //    printf ("Upsets: %u", countUpsetsWithWinVec (&TG, win_vec));
+    //
+    //    free (win_vec);
+    //    u8 max_upsets    = 0;
+    //    u128 upper_bound = 1;
+    //    upper_bound      = upper_bound << edges;
+    //    for (; TG.graph < upper_bound; TG.graph++)
+    //        {
+    //            u8 current_upsets = countUpsets (&TG);
+    //            if (current_upsets > max_upsets)
+    //                max_upsets = current_upsets;
+    //        }
+    //    printf ("Max Upsets: %u", max_upsets);
+    //    //    printf ("Max upsets for order %u: %u", order, maxUpsets
+    //    (order));
+    for (; TG.graph < graphs; TG.graph++)
+        {
+            printf ("Seed is %lu\n", (u64)TG.graph);
+        }
+    return 0;
+}
