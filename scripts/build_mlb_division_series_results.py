@@ -9,9 +9,9 @@ GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
 OUT_PATH = f"{DATA_DIR}/mlb_division_series_results.csv"
 
 ANOMALIES_DIR = f"{DATA_DIR}/anomalies"
-GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/games_played_variation_1985_2024.csv"
-TIED_SERIES_PATH = f"{ANOMALIES_DIR}/tied_division_series_1985_2024.csv"
-TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/individual_tie_games_in_division_1985_2024.csv"
+GAMES_PLAYED_VARIATION_PATH = f"{ANOMALIES_DIR}/mlb_games_played_variation.csv"
+TIED_SERIES_PATH = f"{ANOMALIES_DIR}/mlb_tied_division_series.csv"
+TIE_GAMES_IN_DIVISION_PATH = f"{ANOMALIES_DIR}/mlb_individual_tie_games_in_division.csv"
 
 
 def load_division_lookup():

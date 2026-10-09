@@ -2,7 +2,7 @@ import csv
 
 DATA_DIR = "Data"
 GAME_LOG_PATH = f"{DATA_DIR}/game_data_us_leagues.csv"
-OUT_PATH = f"{DATA_DIR}/mlb_ties_1985_2024.csv"
+OUT_PATH = f"{DATA_DIR}/anomalies/mlb_ties.csv"
 
 START_SEASON = 1985
 END_SEASON = 2024
