@@ -1,272 +1,201 @@
-# Notes — division data (MLB, NBA, NFL, 1985–2024)
+# Notes on the division data
 
-Findings, decisions, and data caveats from building the division-level datasets. This is the
-narrative companion to the CSVs in `Data/` and the evidence files in `Data/anomalies/`. Written
-to be read before using the data for upset analysis. Sections: what the data covers, how division
-membership was built and checked, one section per league, the irregular seasons and how they are
-handled, then the upset definition and open caveats (which apply to all leagues).
+How the division data was built and what to keep in mind when using it. MLB, NBA and NFL cover
+1985-2024. The Premier League covers 2001-2024 without 2003 and 2004.
 
----
+## What the data is
 
-## What the dataset covers
+Each division in each season is one tournament: its teams and every pair's head-to-head record
+that season.
 
-All three leagues cover **1985–2024** (40 seasons), reduced to **division-level tournaments**:
-within each division each season, every pair of teams plays a fixed set of games, so a division is
-a small, clean testbed for the upset question before tackling full leagues. A **tournament** here
-means one division in one season, and its teams' season-long head-to-head records.
-
-| League | Tournaments (division-seasons) | Teams per tournament | Series (team pairs) | Team-seasons |
+| League | Tournaments | Teams per tournament | Series (team pairs) | Team-seasons |
 |---|---|---|---|---|
-| MLB | 222 | 4–7 | 2,503 | 1,158 |
-| NBA | 202 | 5–8 | 2,778 | 1,147 |
-| NFL | 286 | 4–6 | 2,059 | 1,229 |
+| MLB | 222 | 4-7 | 2,503 | 1,158 |
+| NBA | 202 | 5-8 | 2,778 | 1,147 |
+| NFL | 286 | 4-6 | 2,059 | 1,229 |
+| Premier League | 22 | 20 | 4,180 | 440 |
 
-Per league, two processed files (see `Data/README.md` for columns):
-`<league>_division_membership.csv` (who was in which division each season) and
-`<league>_division_series_results.csv` (head-to-head record for every intra-division pair), plus
-evidence files in `Data/anomalies/` (see `Data/anomalies/README.md`).
+The Premier League has no divisions, so each season is one tournament of all 20 teams.
 
-## Division membership is external knowledge
+Every league has a membership file and a series results file in `Data/`, plus evidence files in
+`Data/anomalies/`. The columns are described in `Data/README.md`.
 
-The game log (`game_data_us_leagues.csv`) has **no league or division column** — only the two
-teams and the result. Which teams belonged to which division is historical domain knowledge, not
-derivable from the data, so each `build_<league>_division_membership.py` encodes it as era
-tables. How much of it can be checked against the data differs by league:
+## Where division membership comes from
 
-| League | Team codes checked vs game log | Division placement checked against the schedule |
+The game log has no division column, so each membership script holds the divisions as era tables
+taken from league history. What each script checks:
+
+| League | Team codes vs game log | Division placement |
 |---|---|---|
-| MLB | Yes, every season | No |
-| NBA | Yes, every season | Partly (see the NBA section) |
-| NFL | Yes, every season | Yes, every season: division rivals play exactly twice |
+| MLB | every season | not checked |
+| NBA | every season | partly, see the NBA section |
+| NFL | every season | every season (division rivals play exactly twice) |
+| Premier League | read from the log | one tournament per season; every pair plays twice, checked every season |
 
-Placements that are not checked against the schedule come from documented history and should be
-spot-checked against a reference (Basketball-Reference, Baseball-Reference).
-
----
+The placements the scripts cannot check were compared by hand with the Wikipedia season pages, one
+season per era: MLB 1985, 1993, 1994, 1997, 1998, 2012, 2013 and NBA 1985, 1988, 1989, 1990, 1994,
+1995, 1999, 2001, 2002, 2004, 2023. All matched. Other seasons rely on the era tables staying
+constant within an era.
 
 ## MLB
 
-### MLB realigned 4 times since 1985 — there are 5 eras
+There are five eras:
 
-Division count and size are **not** constant across the dataset. Anyone comparing seasons needs
-to know this:
+| Seasons | Structure | Teams |
+|---|---|---|
+| 1985-1992 | 2 divisions per league (East, West) | 26 |
+| 1993 | same, after expansion | 28 |
+| 1994-1997 | 3 divisions per league (East, Central, West) | 28 |
+| 1998-2012 | 3 divisions per league | 30 |
+| 2013-2024 | current alignment | 30 |
 
-| Era | Seasons | Structure | Teams |
-|---|---|---|---|
-| 1 | 1985–1992 | 2 divisions/league (East, West), no Central | 26 |
-| 2 | 1993 | 2 divisions/league, post-expansion | 28 |
-| 3 | 1994–1997 | 3 divisions/league (East/Central/West) introduced | 28 |
-| 4 | 1998–2012 | 3 divisions/league, 30 teams (AL 14 / NL 16) | 30 |
-| 5 | 2013–2024 | 3 divisions/league, current alignment (AL 15 / NL 15) | 30 |
+Divisions have 4 to 7 teams (23 of size 4, 148 of size 5, 31 of size 6, 20 of size 7).
 
-Division sizes range from **4 to 7 teams** (23 tournaments of 4, 148 of 5, 31 of 6, 20 of 7), so
-the number of pairs per division is not fixed either. The membership file and all downstream code
-handle this via `math.comb` rather than assuming a fixed division size.
+Three franchises changed their code: CAL became ANA (1997), MON became WAS (2005) and FLO became
+MIA (2012). The Rays (`TBA`) and Guardians (`CLE`) kept their codes. Only two teams changed
+divisions: Milwaukee moved from the AL Central to the NL Central in 1998, and Houston from the NL
+Central to the AL West in 2013.
 
-### Franchise code changes (same team, different abbreviation)
-
-Three franchises appear under two different codes in the data. These are **not** division changes
-— only the abbreviation changed, at the exact season noted (verified against the game log, no
-overlap year):
-
-| Franchise | Before | After | Season |
-|---|---|---|---|
-| Angels | CAL | ANA | 1997 |
-| Expos → Nationals | MON | WAS | 2005 |
-| Marlins | FLO | MIA | 2012 |
-
-Two rebrands that people assume changed the code but **did not**: Devil Rays → Rays stayed `TBA`
-(2008), Indians → Guardians stayed `CLE` (2022). Don't "fix" these.
-
-Note on the team lookup: the game log uses Retrosheet-style codes, so the Nationals are `WAS`.
-`mlb_teams.csv` was corrected to use `WAS` (not `WSH`) to stay consistent with the data.
-
-### Two teams actually changed divisions
-
-| Team | From | To | Season |
-|---|---|---|---|
-| Milwaukee Brewers | AL Central | NL Central | 1998 |
-| Houston Astros | NL Central | AL West | 2013 |
-
-No other team changed divisions in 1985–2024; every other change is an era-wide realignment.
-
-### MLB data anomalies
-
-1. **Games per pair is highly variable (5 to 20).** Not a constant 13: it ranges from **5**
-   (1994 strike) to **20** and is frequently even. Only **2023–2024** have the clean "exactly 13"
-   property (odd, so always a decisive series). Evidence: `anomalies/mlb_games_played_variation.csv`.
-2. **Tied division series — 154.** Pairs that finished a season with equal head-to-head wins.
-   Common because so many seasons had an even number of games per pair. Evidence:
-   `anomalies/mlb_tied_division_series.csv`.
-3. **Individual tied games — 21 total, 13 in-division.** Suspended or rain-shortened games never
-   completed. Evidence: `anomalies/mlb_ties.csv` (all 21) and
-   `anomalies/mlb_individual_tie_games_in_division.csv` (the 13). They count toward `games_played`
-   but toward neither team's wins, which is why the results file has a separate `ties` column.
-
----
+Games per pair range from 5 to 20, and only 2023-2024 have exactly 13. There are 154 tied series.
+21 individual games ended tied (13 between division teams); they count toward `games_played` but
+not toward either team's wins, which is why the results file has a `ties` column.
 
 ## NBA
 
-### Eras
+The NBA has nine eras. Until 2003 there were 4 divisions of 5-8 teams (Atlantic and Central in the
+East, Midwest and Pacific in the West). Since 2004 there are 6 divisions of 5.
 
-Division structure changed often in the NBA, so there are 9 eras. Until 2003 there were 4
-divisions (Atlantic, Central in the East; Midwest, Pacific in the West), of 5–8 teams; from 2004
-there are 6 divisions of 5.
+- 1985-87: 23 teams, Sacramento in the Midwest.
+- 1988: Charlotte and Miami join, Sacramento moves to the Pacific.
+- 1989: Minnesota and Orlando join.
+- 1990: the expansion teams move around. In 1988 Miami is in the Midwest and Charlotte in the
+  Atlantic, in 1989 Charlotte is in the Midwest and Orlando in the Central, and in 1990 Orlando is
+  in the Midwest. This comes from the schedule and matches Wikipedia.
+- 1991-94: Orlando in the Atlantic.
+- 1995-2000: Toronto (Central) and Vancouver (Midwest) join.
+- 2001: Vancouver becomes Memphis.
+- 2002-03: the Charlotte franchise moves to New Orleans and stays in the East.
+- 2004-2024: six divisions of 5.
 
-| Seasons | Teams | Changes |
-|---|---|---|
-| 1985–87 | 23 | 4 divisions of 5–6 teams; Sacramento in the Midwest |
-| 1988 | 25 | Charlotte and Miami join; Sacramento moves to the Pacific |
-| 1989 | 27 | Minnesota and Orlando join |
-| 1990 | 27 | Placements of the expansion teams shift (see below) |
-| 1991–94 | 27 | Orlando in the Atlantic |
-| 1995–2000 | 29 | Toronto (Central) and Vancouver (Midwest) join |
-| 2001 | 29 | Vancouver becomes Memphis |
-| 2002–03 | 29 | Charlotte franchise relocates to New Orleans (NOH) but stays in the East |
-| 2004–24 | 30 | 6 divisions of 5 (Atlantic, Central, Southeast, Northwest, Pacific, Southwest) |
+Before 1995, division rivals played more games than other teams in the same conference, so the
+script recovers the divisions from the schedule (West 1985-94, East 1988-94) and checks them against
+the declared ones. It also checks the East/West split every season up to 2003, and that East
+1995-2003 pairs with only 3 games are never in the same division. Not checkable from the schedule:
+East 1985-87, West 1995-2003 and 2004-2024.
 
-The 1988–90 expansion placements come from the schedule (see below) and look unusual: in 1988
-Miami is in the West's Midwest and Charlotte in the East's Atlantic; in 1989 Charlotte is in the
-Midwest and Orlando in the East's Central; in 1990 Orlando is in the Midwest. These should be
-confirmed against Basketball-Reference.
+The log uses the code of the time, which the script resolves each season: NJN became BKN (2012), SEA
+became OKC (2008), VAN became MEM (2001), and New Orleans went NOH, NOK (2005-06), NOH, NOP (2013).
+`CHA` after 2004 is the Charlotte Bobcats, a new franchise that reuses the code.
 
-### How the divisions were derived and checked
-
-Before 1995 division rivals played more games than other same-conference teams, so the divisions
-were recovered from the schedule (West 1985–94, East 1988–94) and the script asserts they equal
-the declared ones. For every season 1985–2003 the East/West split is also checked (cross-conference
-pairs play far fewer games). East 1995–2003 has only a necessary-condition check (pairs that played
-3 games are never division rivals). **Not verifiable from the schedule:** East 1985–87 (all
-same-conference pairs play the same number of games), West 1995–2003 (all pairs play 4 games),
-and division placement in 2004–24. Those come from documented history; spot-check them.
-
-### Franchise code changes
-
-The log uses period-correct codes, so the membership script resolves a few per season:
-
-| Franchise | Codes (by season) |
-|---|---|
-| New Jersey → Brooklyn Nets | `NJN` (to 2011) → `BKN` (2012+) |
-| Seattle → Oklahoma City | `SEA` (to 2007) → `OKC` (2008+) |
-| Charlotte Hornets → New Orleans | `CHA` (1988–2001) → `NOH` (2002–04, 2007–12) → `NOK` (2005–06, post-Katrina) → `NOP` (2013+) |
-| Vancouver → Memphis | `VAN` (to 2000) → `MEM` (2001+) |
-
-`CHA` also appears from 2004 for the Charlotte Bobcats, a **different (new) franchise** that reuses
-the code.
-
-### Ties are expected; irregular seasons
-
-NBA division pairs play 4–6 games (6 in the 1980s, mostly 5 in 1989–94, mostly 4 since 1995), so
-level series (2–2, 3–3) are common whenever the count is even — **602** across 1985–2024 (22% of
-series). The NBA has no tied games. See the irregular-seasons section below for the 1998, 2011,
-2018, 2019, 2020 and 2023 disruptions.
-
-### Design notes flagged for the group
-- **Naming inconsistency:** NBA divisions are named bare (`Atlantic`, `Pacific`); MLB uses
-  `AL-East` / `NL-West` and NFL `AFC-East` / `NFC-Central`. Unresolved.
-- Old and new NBA divisions share names (`Atlantic`, `Central`, `Pacific`) but not members, e.g.
-  the 2004 Central is not the 2003 Central.
-
----
+Pairs play 4 to 6 games (mostly 6 in the 1980s, 5 in 1989-94, 4 since 1995), so a series is often
+tied: 602 times, 22% of series. NBA games themselves never end tied.
 
 ## NFL
 
-### Eras
+Until 2001 there were 6 divisions of uneven size, and since 2002 there are 8 divisions of 4:
 
-Until 2001 the NFL had 6 divisions (AFC and NFC × East, Central, West) of uneven size; from 2002
-it has 8 divisions of 4.
+- 1985-94: 28 teams, AFC-Central and NFC-West have 4 teams, the other four have 5.
+- 1995: Carolina and Jacksonville join.
+- 1996-98: the Browns are inactive and the Ravens start in the AFC-Central.
+- 1999-2001: the Browns return, AFC-Central has 6 teams.
+- 2002-2024: the Texans join and the league realigns into 8 divisions of 4.
 
-| Seasons | Teams | Structure |
-|---|---|---|
-| 1985–94 | 28 | AFC-Central and NFC-West have 4 teams; the other four have 5 |
-| 1995 | 30 | Carolina and Jacksonville join; both 5-team divisions complete |
-| 1996–98 | 30 | Browns inactive; Ravens (BAL) begin in the AFC-Central |
-| 1999–2001 | 31 | Browns return; AFC-Central has 6 teams |
-| 2002–24 | 32 | Texans join; realignment into 8 divisions of 4 (Seattle moves to the NFC-West, Arizona to the NFC-West) |
+The log already uses present-day codes (TEN, IND, ARI, LAR, LAC, LV), so there is no code
+resolution. Division rivals play exactly twice, and the script checks this for every pair in every
+division, which confirms the placements. The one exception is 1987 (players' strike), when the log
+has only 12 games per team and many pairs played once, so the check there is "at least once".
 
-### Codes and verification
+Two games per pair means 853 tied series (41% of series). 21 games ended tied after overtime, 10
+of them between division teams. Tied games count for neither team.
 
-The log already uses present-day franchise codes in every season (Oilers → `TEN`, Colts → `IND`,
-Cardinals → `ARI`, Rams → `LAR`, Chargers → `LAC`, Raiders → `LV`), so there is no code resolution
-for the NFL. Because division rivals play exactly twice a season, the script asserts that every
-pair in every declared division played exactly 2 games, which confirms the division placements
-in every season except 1987 (see below).
+## Premier League
 
-### Ties and irregular seasons
+20 teams, and every pair plays twice per season, once at each ground (380 games). Each season is
+one tournament of 20 teams. The game log has `home_team`, `away_team`, the goals and
+`hometeamresult` (1 home win, -1 away win, 0 draw), with no `league` column, so it is laid out
+differently from the US log.
 
-NFL pairs play only 2 games, so 1–1 splits are common — **853** tied series (41% of series). NFL
-games can also end tied after overtime: **21** in 1985–2024, 10 of them between division rivals.
-A tied game counts for neither team. **1987** (players' strike) has only 12 games per team in the
-log, so many division pairs played once.
+The log has 22 seasons: 2001, 2002 and 2005-2024. 2003 and 2004 are missing, and we have not
+filled them in.
 
----
+Membership is read from the log, since promotion and relegation change the 20 teams every year.
+The script checks the season list, 20 teams and 380 games per season, and that every home/away
+pairing happens exactly once.
 
-## Irregular seasons and how they are handled
+A series is the two games between a pair, 4,180 in total. A drawn game goes in the `ties` column.
+With a win worth 1, a draw 1/2 and a loss 0, the possible series scores are (0, 2), (1/2, 3/2),
+(1, 1), (3/2, 1/2) and (2, 0). Only (1, 1) is a tied series. Comparing `wins1` and `wins2` gives
+the same winner, since both teams get 1/2 per draw. 1,215 series are tied (29%): 950 are a win and a
+loss, 265 are two draws. 2,028 games were drawn (24%).
 
-Seasons whose game counts differ from the standard schedule:
+## Irregular seasons
 
-| League | Season | What the log shows | Tournaments affected |
+These seasons have different game counts from the standard schedule. All of them are kept in the
+data.
+
+| League | Season | What happened | Tournaments affected |
 |---|---|---|---|
-| NFL | 1987 | Strike: 12 games per team; many division pairs played once | 6 of 286 |
-| NBA | 1998 | Lockout: 50 games per team | 4 of 202 |
-| NBA | 2011 | Lockout: 66 games per team | 6 |
-| NBA | 2019 | COVID suspension: 64–75 games per team, uneven | 6 |
+| NFL | 1987 | strike, 12 games per team, many pairs played once | 6 of 286 |
+| NBA | 1998 | lockout, 50 games per team | 4 of 202 |
+| NBA | 2011 | lockout, 66 games per team | 6 |
+| NBA | 2019 | COVID suspension, 64-75 games per team | 6 |
 | NBA | 2020 | 72 games per team | 6 |
-| NBA | 2018 | 1,228 games instead of 1,230; BOS–PHI has 3 games (cause not established) | 1 series |
-| NBA | 2023 | Four division pairs have 5 games (cause not established); the log also has one extra game in 2023 and in 2024 | 4 series |
-| NBA | 2012 | BOS and IND have 81 games; not division rivals | none |
-| NFL | 2022 | BUF and CIN have 16 games (cancelled game); not division rivals | none |
-| MLB | 1994, 1995, 2020 | Strike-shortened (1994–95) and COVID (2020) seasons | 12 of 222 (1994, 2020) |
+| NBA | 2018 | 1,228 games instead of 1,230, BOS-PHI have 3 games (cause unknown) | 1 series |
+| NBA | 2023 | four division pairs have 5 games (cause unknown) | 4 series |
+| NBA | 2012 | BOS and IND have 81 games, not division rivals | none |
+| NFL | 2022 | BUF and CIN have 16 games (cancelled game), not division rivals | none |
+| MLB | 1994, 1995, 2020 | strike and COVID seasons | 12 of 222 (1994, 2020) |
 
-For the NBA the four short seasons (1998, 2011, 2019, 2020) cover 22 of 202 tournaments (11%).
+Whether to exclude or mark the shortened seasons in comparisons is still open.
 
-**Handling:** all of these seasons are **included**; no season or game is removed. Tied games count
-for neither team. Tied series follow the upset definition below. NFL 1987 is included with the
-1986 alignment (the strike did not change it), and its division check is relaxed to "played at
-least once". The games-per-pair variation files flag the irregular seasons. Whether to exclude or
-flag them in cross-season comparisons is **open** (see the caveats below).
+## How we define an upset
 
----
+Take two teams in a division with season scores s1 and s2. A team's score is the number of
+division series it won.
 
-## The settled definition of "upset"
+- If s1 equals s2, the pair is skipped. It is neither an upset nor a non-upset.
+- Otherwise, say s1 is larger. If the higher-scoring team won the series, there is no upset. If the
+  lower-scoring team won, that is 1 upset. If the series was tied, it depends on the version:
+  - strict upset: the tie counts 0
+  - weak upset: the tie counts 1/2
 
-Decided in the 2026-09-16 and 2026-09-23 coding-subgroup meetings. Given two teams with total
-season scores s1, s2 (score = number of division-series wins, a tied series counting as 1/2):
+The two counts are the same when a tied series is impossible (an odd number of games per pair), and
+the weak count is higher by 1/2 for every tied series between teams with different scores.
 
-- **s1 == s2 → skip.** Don't classify the pair as an upset or a non-upset; exclude it from both
-  numerator and denominator. (We can't say which team ranked higher, so "did the lower-ranked
-  team win?" is undefined.)
-- **s1 ≠ s2** (say s1 > s2; the other case is symmetric):
-  - higher-scoring team won the head-to-head series → **not an upset**.
-  - lower-scoring team won the head-to-head series → **1 upset**.
-  - head-to-head series tied → **1/2 upset**.
+This differs from the graph theory literature (Fulkerson 1965, Brualdi and Li 1983), which breaks
+equal scores using an arbitrary team order. That makes the upset count depend on how the teams are
+labelled and has no meaning for real results, so we skip those pairs instead. As a result, upsets
+are no longer the above-diagonal entries of a score-sorted adjacency matrix.
 
-This deliberately differs from the graph-theory literature (Fulkerson 1965; Brualdi & Li 1983),
-which breaks score ties by arbitrary team-labeling (e.g. alphabetical) order. We rejected that
-because it makes the upset count depend on an arbitrary labeling and corresponds to no real-world
-meaning for actual sports results. Consequence: the classic "upsets = above-diagonal entries in a
-score-sorted adjacency matrix" identity from the literature no longer holds under our definition.
+## The analysis files
 
-## Two models per division/season
+`Analysis/<league>_analysis.csv` has one row per tournament, with the columns `season, division,
+num_teams, games_per_pair, teams, scoring_sequence, upset_strict, upset_weak`. `teams` lists the
+teams ranked by score and `scoring_sequence` has the matching scores. `games_per_pair` is the number
+for the first pair in the division, so it is not exact in the irregular seasons.
 
-- **Model 1 — Binary:** only the series winner matters (one directed edge per pair). This is the
-  standard tournament graph, directly comparable to the theory subgroup's work.
-- **Model 2 — Win/Loss:** keep actual game-win tallies; a team's score is its total in-division
-  game wins. Captures margin of dominance, not just who won each series.
+How often the two counts differ:
 
-Both produce standings, scoring sequences, and upset counts — possibly different, since a team
-can win many series narrowly (strong in Model 1) or few series by large margins (strong in
-Model 2).
+| League | Tournaments | Weak count higher | Tied series between teams with different scores |
+|---|---|---|---|
+| MLB | 222 | 60 | 100 |
+| NBA | 202 | 157 | 413 |
+| NFL | 286 | 240 | 486 |
 
-## Open caveats for downstream analysis
+All tournaments stay in the files. Filters such as "5-team divisions only" are applied when
+computing results. For the NBA midterm numbers, 129 of the 202 divisions have 5 teams. Their
+strict upsets (0, 1, 2) occur (93, 32, 4) times, and for 2004-2024 only it is (90, 32, 4) out of 126.
 
-- **Shortened seasons** (see the table above): keep, flag, or drop them when comparing across
-  seasons? Their small samples make upset counts noisier.
-- **Tied series are common** in all three leagues (MLB 6%, NBA 22%, NFL 41% of series), so the
-  1/2-upset rule is load-bearing, not a rare edge case.
-- **Variable division sizes** (4–8 teams) mean upset *counts* aren't comparable across eras
-  directly — use upset *frequency* (upsets / pairs) for cross-era comparison.
-- **Division placements not checked against the schedule** (MLB all seasons, NBA East 1985–87 and
-  West 1995–2003 and 2004–24, plus the 1988–90 NBA expansion placements) need a spot-check
-  against a reference.
-- **Division naming** is inconsistent across leagues (see the NBA section).
+## Open questions
+
+- Tied series in the scores. In the analysis files a tied series adds nothing to either team's
+  score. Earlier meetings counted it as 1/2 a point. Switching would change some scoring sequences
+  and upset counts.
+- Premier League score. Not decided whether a team's score is the number of series won (like the
+  other leagues) or its season total of w + d/2. `prem_analysis.csv` is not built yet.
+- The shortened seasons: keep, mark or drop them.
+- Upset counts depend on the number of teams (4-8 in a division, 20 in the Premier League), so
+  compare frequencies, not counts.
+- Division names are not consistent: `AL-East` (MLB), `AFC-East` (NFL), `Atlantic` (NBA) and
+  `Premier-League`.
+- The Premier League is missing 2003 and 2004.
