@@ -5,11 +5,10 @@ from math import comb
 #The premier league (prem) has no divisions: the whole league is one tournament per season
 # (20 teams, every pair plays twice - once home once away). So no era tables needed.
 # Season labels are start-year (2024 = 2024-25).
-# The game log has no 2003 and 2004 seasons. So they are not filled in here (for now)
 
 LEAGUE = "PL"
 DIVISION = "Premier-League"
-EXPECTED_SEASONS = [2001, 2002] + list(range(2005, 2025))
+EXPECTED_SEASONS = list(range(2001, 2025))
 TEAMS_PER_SEASON = 20
 GAMES_PER_SEASON = 380
 
@@ -90,7 +89,7 @@ def verify(rows, games):
         assert n_pairs == 2 * comb(TEAMS_PER_SEASON, 2), f"{season}: wrong number of home/away pairs"
 
     print(f"All checks passed: {len(rows)} rows, {len(by_season)} seasons "
-          f"({EXPECTED_SEASONS[0]}-{EXPECTED_SEASONS[-1]}, no 2003 or 2004), {TEAMS_PER_SEASON} teams "
+          f"({EXPECTED_SEASONS[0]}-{EXPECTED_SEASONS[-1]}), {TEAMS_PER_SEASON} teams "
           f"and {GAMES_PER_SEASON} games per season, every pair played exactly twice (home and away).")
 
 if __name__ == "__main__":
