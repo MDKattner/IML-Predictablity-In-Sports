@@ -104,8 +104,8 @@ if __name__ == "__main__":
     real_rows = load_real_series(args.league)
     assert all(r["league"] == label for r in real_rows), f"league label in the real file is not {label}"
     fake_rows = make_fake_rows(real_rows, p_draw, rng)
-    suffix = f"_{args.run:02d}"
-    out_path = f"{FAKE_DIR}/{args.league}_fake_division_series_results{suffix}.csv"
+    suffix = f"{args.run:02d}"
+    out_path = f"{FAKE_DIR}/{args.league}_fake{suffix}_division_series_results.csv"
     write_csv(fake_rows, out_path)
     verify(real_rows, fake_rows, p_draw)
     print(f"Written to {out_path}")

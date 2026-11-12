@@ -7,8 +7,8 @@ data, this is more for documentation. The files are written by the `build_<leagu
 
 MLB, NBA and NFL each have a games-played variation file and a tied series file. MLB and NFL also
 have a file of tied games, because their games can end tied; NBA games always have a winner. The
-Premier League only has a tied series file: every pair plays exactly 2 games, and its drawn games
-are in the `ties` column of the results file.
+Premier League and the Bundesliga only have a tied series file: every pair plays exactly 2 games,
+and their drawn games are in the `ties` column of the results file.
 
 ## MLB
 
@@ -49,10 +49,17 @@ are in the `ties` column of the results file.
 ## Premier League
 
 - `prem_tied_division_series.csv`: pairs whose two games ended level, either a win and a loss or
-  two draws, 1,215 in 2001-2024 (950 a win and a loss, 265 two draws ~29%). Expected with two games per
-  pair. Same columns as the MLB file, where `ties` is the number of drawn games.
+  two draws, 1,338 in 2001-2024 (1,035 a win and a loss, 303 two draws, about 29%). Expected with
+  two games per pair. Same columns as the MLB file, where `ties` is the number of drawn games.
 
-The Premier League game log also has no 2003 and 2004 seasons (see `Notes.md`).
+## Bundesliga
+
+- `bund_tied_division_series.csv`: pairs whose two games ended level, either a win and a loss or
+  two draws, 1,161 in 2001-2024 (922 a win and a loss, 239 two draws, about 32%). Expected with
+  two games per pair. Same columns as the MLB file, where `ties` is the number of drawn games.
+
+The Bundesliga log holds the official result of Union Berlin v Bochum (2024-25), 0-2, and not the
+1-1 played on the pitch. See `Notes.md`.
 
 ## Irregular seasons
 

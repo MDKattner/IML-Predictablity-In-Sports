@@ -22,10 +22,13 @@ python3 scripts/build_nfl_division_series_results.py
 # Premier League
 python3 scripts/build_prem_division_membership.py
 python3 scripts/build_prem_division_series_results.py
+
+# Bundesliga
+python3 scripts/build_bund_division_membership.py
+python3 scripts/build_bund_division_series_results.py
 ```
 
-MLB, NBA and NFL cover 1985-2024. The Premier League covers 2001-2024 without 2003 and 2004,
-which are missing from the source data.
+MLB, NBA and NFL cover 1985-2024. The Premier League and the Bundesliga cover 2001-2024.
 
 ## Membership scripts
 
@@ -42,9 +45,10 @@ team counts are right, and that the team codes match the game log. Beyond that:
   1985-87, West 1995-2003 and 2004-2024 cannot be checked this way.
 - NFL (5 eras): the log already uses present-day codes. Every pair in a division must have played
   exactly twice, which confirms the placements. 1987 (strike) only needs at least one game.
-- Premier League: no divisions, so no era tables. The teams of each season are read from the log,
-  and the script checks the season list, 20 teams and 380 games per season, and that every
-  home/away pairing happens exactly once.
+- Premier League and Bundesliga: no divisions, so no era tables. The teams of each season are read
+  from the game log, and the script checks the season list, the number of teams and games per
+  season (20 and 380, or 18 and 306), and that every home/away pairing happens exactly once. The
+  two scripts are the same apart from the paths, the league label (`PL` or `BL`) and those numbers.
 
 The placements that could not be checked in the scripts were compared with the Wikipedia season
 pages (see `Data/Notes.md`).
@@ -61,12 +65,18 @@ code, or `TIE` on equal wins).
 divisions) and that `wins1 + wins2 + ties` equals `games_played` on every row. The Premier League
 script also checks that `games_played` is 2.
 
-The Premier League log is laid out differently: it has `home_team`, `away_team` and
-`hometeamresult` (1 home win, -1 away win, 0 draw) and no `league` column. A draw goes in `ties`.
+The Premier League and Bundesliga logs are laid out differently: they have `home_team`,
+`away_team` and `hometeamresult` (1 home win, -1 away win, 0 draw) and no `league` column. A draw
+goes in `ties`. The Bundesliga log holds official results, which matters for one game (Union Berlin
+v Bochum, 2024-25, see `Data/Notes.md`).
 
 Each script writes its tied series to `Data/anomalies/`. MLB and NFL also write the pairs with a
 tied individual game, and MLB, NBA and NFL write a games-per-pair variation file. The Premier League
-has neither, since every pair plays exactly 2 games.
+and the Bundesliga have neither, since every pair plays exactly 2 games.
+
+The Bundesliga game log itself (`Data/game_data_bundesliga.csv`) is not made by a script in this
+folder. It was built once from the football-data.co.uk season files and checked against
+engsoccerdata; `Data/Notes.md` describes how.
 
 ## find_mlb_ties.py
 
@@ -89,4 +99,9 @@ games_per_pair, teams, scoring_sequence, upset_strict, upset_weak`. `teams` and 
 are tuples ranked by score, and `games_per_pair` comes from the first pair in the division.
 
 Run them in Jupyter from this folder (they use `../Data/` and `../Analysis/`). They need `pandas`,
-and are saved with their outputs cleared. There is no Premier League notebook yet.
+and are saved with their outputs cleared.
+
+`prem_datascripts.ipynb` does the same for the Premier League and writes
+`Analysis/premier_league_analysis.csv`. One difference: it scores a tied series as 1/2 point (a
+series win is 1), while the MLB, NBA and NFL notebooks give a tied series nothing. There is no
+Bundesliga notebook yet.
