@@ -29,7 +29,7 @@ MUTED = "#52514e"
 
 SCORING_NOTE = "Tied series score 0 in MLB, NBA and NFL and 1/2 in EPL and BL"
 
-FAKE_ERROR_BARS = False
+FAKE_ERROR_BARS = True
 
 def load_summary():
     with open(SUMMARY_PATH) as f:
