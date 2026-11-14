@@ -6,8 +6,14 @@ import matplotlib.pyplot as plt
 
 ANALYSIS_DIR = "Analysis"
 OUT_DIR = "figures"
-SUMMARY_PATH = f"{ANALYSIS_DIR}/upset_frequencies_summary.csv"
 N_RUNS = 5
+
+# (summary file, ending added to the chart file names, note added to the footnote)
+SUMMARIES = [
+    (f"{ANALYSIS_DIR}/upset_frequencies_summary.csv", "", ""),
+    (f"{ANALYSIS_DIR}/upset_frequencies_summary_filtered.csv", "_filtered",
+     " MLB and NBA: 5-team divisions only. NFL: 4-team divisions only."),
+]
 
 LEAGUES = [
     ("MLB", "mlb"),
@@ -27,12 +33,12 @@ FAKE_COLOR = "#eb6834"
 INK = "#0b0b0b"
 MUTED = "#52514e"
 
-SCORING_NOTE = "Tied series score 0 in MLB, NBA and NFL and 1/2 in EPL and BL"
+SCORING_NOTE = "Tied series score 0 in MLB, NBA and NFL and 1/2 in EPL and BL."
 
 FAKE_ERROR_BARS = False
 
-def load_summary():
-    with open(SUMMARY_PATH) as f:
+def load_summary(path):
+    with open(path) as f:
         return {r["source_file"]: r for r in csv.DictReader(f)}
 
 def real_mean(summary, stem, measure):
@@ -60,7 +66,7 @@ def save(fig, name):
     plt.close(fig)
     print(f"Saved {path}")
 
-def bar_real_vs_fake(summary, measure, title):
+def bar_real_vs_fake(summary, measure, title, suffix, filter_note):
     labels = [label for label, _ in LEAGUES]
     real = [real_mean(summary, stem, measure) for _, stem in LEAGUES]
     runs = [fake_means(summary, stem, measure) for _, stem in LEAGUES]
@@ -79,14 +85,14 @@ def bar_real_vs_fake(summary, measure, title):
     ax.set_title(f"{title}: real vs fake", loc="left", color=INK)
     style_axes(ax, f"Mean {title.lower()}")
     ax.legend(frameon=False)
-    note = SCORING_NOTE
+    note = SCORING_NOTE + filter_note
     if FAKE_ERROR_BARS:
         note += " Fake bar is the mean of 5 runs, error bar is the standard deviation of the 5 run means."
     fig.text(0.01, -0.02, note, fontsize=8, color=MUTED, ha="left")
-    save(fig, f"bar_{measure}_real_vs_fake")
+    save(fig, f"bar_{measure}_real_vs_fake{suffix}")
 
 
-def bar_real_only(summary, measure, title):
+def bar_real_only(summary, measure, title, suffix, filter_note):
     labels = [label for label, _ in LEAGUES]
     real = [real_mean(summary, stem, measure) for _, stem in LEAGUES]
 
@@ -95,45 +101,12 @@ def bar_real_only(summary, measure, title):
     ax.bar_label(bars, fmt="%.3f", padding=3, color=INK, fontsize=9)
     ax.set_title(f"{title} by league (real data)", loc="left", color=INK)
     style_axes(ax, f"Mean {title.lower()}")
-    fig.text(0.01, -0.02, SCORING_NOTE, fontsize=8, color=MUTED, ha="left")
-    save(fig, f"bar_{measure}_real_by_league")
-
-
-# def box_real_vs_fake(measure, title):
-#     fig, ax = plt.subplots(figsize=(10, 5))
-#     width = 0.34
-#     real_data, fake_data = [], []
-#     for _, stem in LEAGUES:
-#         real_data.append(load_frequencies(f"{ANALYSIS_DIR}/{stem}_analysis.csv", measure))
-#         pooled = []
-#         for run in range(1, N_RUNS + 1):
-#             pooled += load_frequencies(f"{ANALYSIS_DIR}/fake{run:02d}_{stem}_analysis.csv", measure)
-#         fake_data.append(pooled)
-
-#     xs = list(range(len(LEAGUES)))
-#     for data, offset, color in [(real_data, -width / 2 - 0.02, REAL_COLOR), (fake_data, width / 2 + 0.02, FAKE_COLOR)]:
-#         ax.boxplot(
-#             data, positions=[x + offset for x in xs], widths=width, patch_artist=True, showmeans=True,
-#             boxprops=dict(facecolor=color, alpha=0.75, edgecolor=INK, linewidth=0.8),
-#             medianprops=dict(color=INK, linewidth=1.5),
-#             meanprops=dict(marker="D", markerfacecolor="white", markeredgecolor=INK, markersize=5),
-#             whiskerprops=dict(color=INK, linewidth=0.8),
-#             capprops=dict(color=INK, linewidth=0.8),
-#             flierprops=dict(marker="o", markersize=2.5, markerfacecolor=color, markeredgecolor="none", alpha=0.5),
-#         )
-#     ax.set_xticks(xs, [label for label, _ in LEAGUES])
-#     ax.set_title(f"{title} per division-season: real vs fake", loc="left", color=INK)
-#     style_axes(ax, title)
-#     handles = [plt.Rectangle((0, 0), 1, 1, color=REAL_COLOR, alpha=0.75),
-#                plt.Rectangle((0, 0), 1, 1, color=FAKE_COLOR, alpha=0.75)]
-#     ax.legend(handles, ["Real", "Fake (5 runs pooled)"], frameon=False)
-#     fig.text(0.01, -0.02, SCORING_NOTE + " Line is the median, diamond is the mean, whiskers reach 1.5 times the IQR.",
-#              fontsize=8, color=MUTED, ha="left")
-#     save(fig, f"box_{measure}_real_vs_fake")
+    fig.text(0.01, -0.02, SCORING_NOTE + filter_note, fontsize=8, color=MUTED, ha="left")
+    save(fig, f"bar_{measure}_real_by_league{suffix}")
 
 if __name__ == "__main__":
-    summary = load_summary()
-    for measure, title in MEASURES:
-        bar_real_vs_fake(summary, measure, title)
-        bar_real_only(summary, measure, title)
-        # box_real_vs_fake(measure, title)
+    for path, suffix, filter_note in SUMMARIES:
+        summary = load_summary(path)
+        for measure, title in MEASURES:
+            bar_real_vs_fake(summary, measure, title, suffix, filter_note)
+            bar_real_only(summary, measure, title, suffix, filter_note)
